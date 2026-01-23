@@ -1,0 +1,14 @@
+# Visual Studio
+.vs/
+*.user
+*.db
+*.log
+
+#Build outputs
+Debug/
+Release/
+x64/
+x86/
+
+# Test files
+TestResults/
