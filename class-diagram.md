@@ -90,7 +90,7 @@ SearchFilteringModule --> RecommendationModule
 
 RecommendationModule --> FeatureDisplayModule
 
-FedatureDisplayModule --> SortingRankingModule
+FeatureDisplayModule --> SortingRankingModule
 
 SortingRankingModule --> OutputDisplayModule
 
