@@ -24,6 +24,15 @@
     <ClCompile Include="search_filtering.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="data_storage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature_display.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="output_display.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="item.h">
