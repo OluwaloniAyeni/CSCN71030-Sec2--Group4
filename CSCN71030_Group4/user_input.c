@@ -6,14 +6,14 @@ UserRequest getUserInput() {
     int choice;
 
     printf("Select Category:\n1. Gym\n2. Hotel\n3. Restaurant\n");
-    scanf("%d", &choice);
+    scanf_s("%d", &choice);
 
     if (choice == 1) req.category = GYM;
     else if (choice == 2) req.category = HOTEL;
     else req.category = RESTAURANT;
 
     printf("Enter your budget: ");
-    scanf("%f", &req.maxBudget);
+    scanf_s("%f", &req.maxBudget);
 
     return req;
 }
