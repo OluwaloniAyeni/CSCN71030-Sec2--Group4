@@ -19,7 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="budget_handling.c" />
+    <ClCompile Include="input_validation.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="user_input.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="budget_handling.h" />
+    <ClInclude Include="input_validation.h" />
+    <ClInclude Include="user_input.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
