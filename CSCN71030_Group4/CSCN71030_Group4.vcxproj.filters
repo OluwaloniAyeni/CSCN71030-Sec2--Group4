@@ -18,5 +18,25 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="recommendation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="search_filtering.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="data_storage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature_display.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="output_display.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
