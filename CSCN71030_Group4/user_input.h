@@ -13,6 +13,6 @@ typedef struct {
     float maxBudget;
 } UserRequest;
 
-
+UserRequest getUserInput();
 
 #endif
