@@ -11,9 +11,16 @@ printf("Thank you for using our system\n");
 }
 
 
-int main()
-{
-	printf("Hello World\n");
+#include "user_input.h"
+#include "input_validation.h"
+#include "budget_handling.h"
 
-	return 0;
+int main() {
+    UserRequest req = getUserInput();
+
+    if (validateInput(req)) {
+        processBudget(req);
+    }
+
+    return 0;
 }
