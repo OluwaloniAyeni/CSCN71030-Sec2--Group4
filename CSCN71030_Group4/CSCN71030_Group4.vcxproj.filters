@@ -18,23 +18,41 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="recommendation.c">
+    <ClCompile Include="budget_handling.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="search_filtering.c">
+    <ClCompile Include="input_validation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="user_input.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="data_storage.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="feature_display.c">
+    <ClCompile Include="output_display.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="output_display.c">
+    <ClCompile Include="search_filtering.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recommendation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="feature_display.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="budget_handling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="input_validation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="user_input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
