@@ -27,3 +27,5 @@ Node* head returnSortedList(Node* head) {
 	return head;
 }
 //function to return a sorted version of the linked list, allowing the user to view the nodes in alphabetical order without modifying the original linked list
+
+#endif // RANKING_AND_SORTING_H
