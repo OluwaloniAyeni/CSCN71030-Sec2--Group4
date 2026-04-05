@@ -67,6 +67,11 @@
     </ClInclude>
     <ClInclude Include="main_control.h">
       <Filter>Header Files</Filter>
+    <ClInclude Include="ranking_and_sorting.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="category_selection.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
