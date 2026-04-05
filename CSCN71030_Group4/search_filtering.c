@@ -42,3 +42,36 @@ Item*loadData(const char* filename, int* count)
 	fclose(file);
 	return items;
 }
+
+Item* filterByBudget(Item* list, int count, const char* category, float minBudget,
+	float maxBudget, int* filteredCount)
+{
+	*filteredCount = 0;
+
+	for (int i = 0; i < count; i++) {
+		if (strcmp(list[i].category, category) == 0 &&
+			list[i].price >= minBudget && list[i].price <= maxBudget) {
+			(*filteredCount)++;
+		}
+	}
+
+	if (*filteredCount == 0) {
+		return NULL;
+	}
+
+	Item* filtered = (Item*)malloc((*filteredCount) * sizeof(Item));
+	if (filtered == NULL)
+		{
+		*filteredCount = 0;
+		return NULL;
+	}
+
+	int j = 0;
+	for (int i = 0; i < count; i++) {
+		if (strcmp(list[i].category, category) == 0 &&
+			list[i].price >= minBudget && list[i].price <= maxBudget) {
+			filtered[j++] = list[i];
+		}
+	}
+	return filtered;
+}
