@@ -21,3 +21,35 @@ int startProgram(const char* filename)
 	freeResults(allItems);
 	return 0;
 }
+
+void manageFlow(Item* allItems, int count)
+{
+	int filteredCount = 0;
+
+	UserRequest request = getUserInput();
+
+	Item* filteredItems = filterByBudget(
+		allItems, count, request.category, 0.0f, request.maxBudget, &filteredCount
+	);
+
+	if (filteredItems == NULL || filteredCount == 0)
+	{
+		printf("No matching results found within your budget:\n");
+		return;
+	}
+
+	int recommendationCount = 0;
+	Item* recommendations = generateRecommendations(filteredItems, filteredCount,
+		&recommendationCount);
+
+	if (recommendations == NULL)
+	{
+		printf("Error: Could not generate recommendations:\n");
+		freeResults(filteredItems);
+		return;
+	}
+
+	displayResults(recommendations, recommendationCount);
+	freeResults(filteredItems);
+	freeResults(recommendations);
+}
