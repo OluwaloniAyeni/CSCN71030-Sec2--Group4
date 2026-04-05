@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include <stdlib.h>
+#include "recommendation.h"
 
 float getRatingScore(Item item) {
 
