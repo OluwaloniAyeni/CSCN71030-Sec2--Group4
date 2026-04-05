@@ -1,11 +1,26 @@
 #include <stdlib.h>
 #include "recommendation.h"
 
-float getRatingScore(Item item) {
+Item* generateRecommendations(Item* filteredlist, int count, int* recommendationCount)
+{
+	if (filteredlist == NULL || count == 0) 
+	{
+		*recommendationCount = 0;
+		return NULL;
+	}
 
-	return item.rating;
-}
+	Item* recommended = (Item*)malloc(count * sizeof(Item));
+	if (recommended == NULL) 
+	{
+		*recommendationCount = 0;
+		return NULL;
+	}
 
-float getPriceValue(Item item) {
-	return item.price;
+	for (int i = 0; i < count; i++) 
+	{
+		recommended[i] = filteredlist[i];
+	}
+
+	*recommendationCount = count;
+	return recommended;
 }
