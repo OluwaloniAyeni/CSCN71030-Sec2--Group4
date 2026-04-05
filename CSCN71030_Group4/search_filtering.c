@@ -75,3 +75,8 @@ Item* filterByBudget(Item* list, int count, const char* category, float minBudge
 	}
 	return filtered;
 }
+
+void freeResults(Item* list)
+{
+	free(list);
+}
