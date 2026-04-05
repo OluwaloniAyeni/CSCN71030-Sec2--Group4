@@ -28,6 +28,12 @@ void manageFlow(Item* allItems, int count)
 
 	UserRequest request = getUserInput();
 
+	if (!validateBudgetInput(request.maxBudget))
+	{
+		printf("Invalid budget input. Please enter a positive number:\n");
+		return;
+	}
+
 	Item* filteredItems = filterByBudget(
 		allItems, count, request.category, 0.0f, request.maxBudget, &filteredCount
 	);
