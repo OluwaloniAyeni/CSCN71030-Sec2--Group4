@@ -2,6 +2,8 @@
 #include "user_input.h"
 #include "input_validation.h"
 #include "budget_handling.h"
+#include"category_selection.h"
+#include"ranking_and_sorting.h"
 
 void showWelcomeMessage()
 {

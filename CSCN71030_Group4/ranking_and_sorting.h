@@ -2,7 +2,24 @@
 #ifndef RANKING_AND_SORTING_H
 #define RANKING_AND_SORTING_H
 
-void bufferData(Node* head, int data)；
+#include <stddef.h>
+
+// Basic linked-list node used across the sorting/ranking components.
+typedef struct Node {
+	char name[64];
+	char category[32];
+	float budget;
+	struct Node* next;
+} Node;
+
+// Dedicated struct used to collect sushi category items (keeps only the fields we need).
+typedef struct Sushi {
+	char name[64];
+	float budget;
+	struct Sushi* next;
+} Sushi;
+
+void bufferData(Node* head, int data);
 // Function to receive data from other components and store it in the linked list, allowing for dynamic input of categories and budgets, and ensuring that the data is properly stored in the linked list for further processing
 // Note: This is not the most efficient sorting algorithm for linked lists, but it serves as an example
 
@@ -23,9 +40,16 @@ void displayList(Node* head);
 //function to display the contents of the linked list, showing the name and budget of each node in a formatted manner, allowing the user to easily view the current state of the linked list
 //it traverses the linked list and prints the name and budget of each node, providing a clear and organized display of the data stored in the linked list
 
-Node* head returnSortedList(Node* head) {
-	return head;
-}
-//function to return a sorted version of the linked list, allowing the user to view the nodes in alphabetical order without modifying the original linked list
+// Return a sorted version of the linked list (declaration).
+Node* returnSortedList(Node* head);
+
+// Create a deep copy of a linked list of Node. Caller must free the returned list when done.
+Node* deepCopyList(const Node* head);
+
+// Split the list into two lists: one with nodes whose category equals "sushi" (copied into a Sushi list),
+// and another list with the remaining nodes (copied into Node list). Both outputs are deep copies.
+// Either output may be set to NULL if no matching nodes are found.
+void splitIntoCategoryLists(const Node* head, Node** outOthersHead, Sushi** outSushiHead);
+
 
 #endif // RANKING_AND_SORTING_H
