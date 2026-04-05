@@ -53,3 +53,24 @@ void manageFlow(Item* allItems, int count)
 	freeResults(filteredItems);
 	freeResults(recommendations);
 }
+
+void displayResults(Item* recommendations, int count)
+{
+	if (recommendations == NULL || count <= 0)
+	{
+		printf("No results to display:\n");
+		return;
+	}
+
+	printf("\nRecommended Results:\n");
+
+	for (int i = 0; i < count; i++)
+	{
+		printf("%d. %s | Category: %s | Price: $%.2f | Rating: %.1f\n",
+			i + 1,
+			recommendations[i].name,
+			recommendations[i].category,
+			recommendations[i].price,
+			recommendations[i].rating);
+	}
+}
