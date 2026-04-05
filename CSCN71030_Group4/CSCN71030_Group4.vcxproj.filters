@@ -42,6 +42,9 @@
     <ClCompile Include="feature_display.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main_control.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="budget_handling.h">
@@ -62,7 +65,7 @@
     <ClInclude Include="recommendation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="main_control.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
