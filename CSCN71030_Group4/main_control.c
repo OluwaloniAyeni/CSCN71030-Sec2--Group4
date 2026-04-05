@@ -28,9 +28,9 @@ void manageFlow(Item* allItems, int count)
 
 	UserRequest request = getUserInput();
 
-	if (!validateBudgetInput(request.maxBudget))
+	if(!validateInput(request))
 	{
-		printf("Invalid budget input. Please enter a positive number:\n");
+		printf("Error: Invalid user input:\n");
 		return;
 	}
 
