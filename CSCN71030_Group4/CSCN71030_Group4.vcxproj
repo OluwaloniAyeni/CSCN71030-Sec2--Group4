@@ -25,6 +25,7 @@
     <ClCompile Include="feature_display.c" />
     <ClCompile Include="input_validation.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="main_control.c" />
     <ClCompile Include="output_display.c" />
     <ClCompile Include="recommendation.c" />
     <ClCompile Include="search_filtering.c" />
