@@ -1,77 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="budget_handling.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="input_validation.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="user_input.c">
+    <ClCompile Include="category_selection.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="data_storage.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="output_display.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="search_filtering.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="recommendation.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="feature_display.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="input_validation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main_control.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="output_display.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recommendation.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="search_filtering.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sorting_and_ranking.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="user_input.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="budget_handling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="input_validation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="user_input.h">
+    <ClInclude Include="budget_handling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="category_selection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_control.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="search_filtering.h">
+    <ClInclude Include="ranking_and_sorting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="recommendation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main_control.h">
+    <ClInclude Include="search_filtering.h">
       <Filter>Header Files</Filter>
-    <ClInclude Include="ranking_and_sorting.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="category_selection.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="user_input.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{12ff41cc-dc3c-4699-96d9-2a122bbbbf62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{03bb9c1c-af39-41db-8c20-d7fcf3f0bfd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{70ef8c45-d544-4dc6-9061-d76579b55e78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
