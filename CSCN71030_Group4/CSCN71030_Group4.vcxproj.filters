@@ -42,9 +42,6 @@
     <ClCompile Include="feature_display.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main_control.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="budget_handling.h">
@@ -59,14 +56,11 @@
     <ClInclude Include="item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="search_filtering.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ranking_and_sorting.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="recommendation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main_control.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="category_selection.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

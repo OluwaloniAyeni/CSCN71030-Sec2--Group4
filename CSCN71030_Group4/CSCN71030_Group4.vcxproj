@@ -20,23 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="budget_handling.c" />
+    <ClCompile Include="category_selection.c" />
     <ClCompile Include="data_storage.c" />
     <ClCompile Include="feature_display.c" />
     <ClCompile Include="input_validation.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="main_control.c" />
     <ClCompile Include="output_display.c" />
     <ClCompile Include="recommendation.c" />
     <ClCompile Include="search_filtering.c" />
+    <ClCompile Include="sorting_and_ranking.c" />
     <ClCompile Include="user_input.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="budget_handling.h" />
+    <ClInclude Include="category_selection.h" />
     <ClInclude Include="input_validation.h" />
     <ClInclude Include="item.h" />
-    <ClInclude Include="main_control.h" />
-    <ClInclude Include="recommendation.h" />
-    <ClInclude Include="search_filtering.h" />
+    <ClInclude Include="ranking_and_sorting.h" />
     <ClInclude Include="user_input.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
