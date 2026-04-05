@@ -40,3 +40,8 @@ void sortByPrice(Item* list, int count)
 		}
 	}
 }
+
+void freeRecommendations(Item* list)
+{
+	free(list);
+}
