@@ -9,8 +9,8 @@ Item* generateRecommendations(Item* filteredlist, int count, int* recommendation
 		return NULL;
 	}
 
-	Item* recommended = (Item*)malloc(count * sizeof(Item));
-	if (recommended == NULL) 
+	Item* recommendations = (Item*)malloc(count * sizeof(Item));
+	if (recommendations == NULL) 
 	{
 		*recommendationCount = 0;
 		return NULL;
@@ -18,11 +18,11 @@ Item* generateRecommendations(Item* filteredlist, int count, int* recommendation
 
 	for (int i = 0; i < count; i++) 
 	{
-		recommended[i] = filteredlist[i];
+		recommendations[i] = filteredlist[i];
 	}
 
 	*recommendationCount = count;
-	return recommended;
+	return recommendations;
 }
 
 void sortByPrice(Item* list, int count)
@@ -41,7 +41,7 @@ void sortByPrice(Item* list, int count)
 	}
 }
 
-void freeRecommendations(Item* list)
+void freeRecommendations(Item* recommendations)
 {
-	free(list);
+	free(recommendations);
 }
