@@ -67,7 +67,7 @@
     <ClInclude Include="user_input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ranking_and_sorting.h">
+    <ClInclude Include="sorting_and_ranking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
