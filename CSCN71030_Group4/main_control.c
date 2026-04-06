@@ -67,12 +67,13 @@ void manageFlow(Item* allItems, int count)
 	}
 
 	int recommendationCount = 0;
+
 	Item* recommendations = generateRecommendations(filteredItems, filteredCount,
 		&recommendationCount);
 
 	if (recommendations == NULL || recommendationCount == 0)
 	{
-		printf("Error: Could not generate recommendations:\n");
+		handleError("Recommendation Module", "Could not generate recommendations");
 		freeResults(filteredItems);
 		return;
 	}
