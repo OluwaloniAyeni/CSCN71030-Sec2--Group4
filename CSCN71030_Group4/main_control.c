@@ -33,8 +33,8 @@ int startProgram(const char* filename)
 
 	if (allItems == NULL || count <= 0)
 	{
-		printf("Error: Could not load data from file:\n");
-		return 1;
+		handleError("Main Control Module", "Failed to load data");
+		return 0;
 	}
 
 	manageFlow(allItems, count);
