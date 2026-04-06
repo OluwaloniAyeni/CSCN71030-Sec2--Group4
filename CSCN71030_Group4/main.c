@@ -8,7 +8,7 @@ int main()
 
 	if (!startProgram(filename))
 	{
-		printf("Program failed to start:\n");
+		handleError("Main Module", "Program failed to start");
 		return 1;
 	}
 
