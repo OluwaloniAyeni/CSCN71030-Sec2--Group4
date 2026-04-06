@@ -9,7 +9,7 @@ Item*loadData(const char* filename, int* count)
 	char line[200];
 
 	if (file == NULL) {
-		printf("Error opening file.\n");
+		handleError("Data Loading Module", "Failed to open file");
 		*count = 0;
 		return NULL;
 	}
