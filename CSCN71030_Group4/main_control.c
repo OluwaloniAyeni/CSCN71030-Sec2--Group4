@@ -62,7 +62,7 @@ void manageFlow(Item* allItems, int count)
 
 	if (filteredItems == NULL || filteredCount == 0)
 	{
-		printf("No matching results found within your budget:\n");
+		handleError("Search and Filtering Module", "No matching results found");
 		return;
 	}
 
