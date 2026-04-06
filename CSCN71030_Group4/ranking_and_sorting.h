@@ -1,7 +1,4 @@
 #pragma once
-#ifndef RANKING_AND_SORTING_H
-#define RANKING_AND_SORTING_H
-
 #include <stddef.h>
 
 // Basic linked-list node used across the sorting/ranking components.
@@ -50,6 +47,3 @@ Node* deepCopyList(const Node* head);
 // and another list with the remaining nodes (copied into Node list). Both outputs are deep copies.
 // Either output may be set to NULL if no matching nodes are found.
 void splitIntoCategoryLists(const Node* head, Node** outOthersHead, Sushi** outSushiHead);
-
-
-#endif // RANKING_AND_SORTING_H
