@@ -22,6 +22,7 @@
     <ClCompile Include="budget_handling.c" />
     <ClCompile Include="category_selection.c" />
     <ClCompile Include="data_storage.c" />
+    <ClCompile Include="error_handling.c" />
     <ClCompile Include="feature_display.c" />
     <ClCompile Include="input_validation.c" />
     <ClCompile Include="main.c" />
