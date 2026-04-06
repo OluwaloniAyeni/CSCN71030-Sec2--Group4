@@ -9,6 +9,22 @@
 #include "sorting_and_ranking.h"
 #include "output_display.h"
 #include "category_selection.h"
+#include "error_handling.h"
+
+const char* getCategoryString(CategoryType category)
+{
+	switch (category)
+	{
+	case GYM:
+		return "gym";
+	case HOTEL:
+		return "hotel";
+	case RESTAURANT:
+		return "restaurant";
+	default:
+		return "";
+	}
+}
 
 int startProgram(const char* filename)
 {
