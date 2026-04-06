@@ -40,7 +40,7 @@
     <ClInclude Include="main_control.h" />
     <ClInclude Include="recommendation.h" />
     <ClInclude Include="search_filtering.h" />
-    <ClInclude Include="ranking_and_sorting.h" />
+    <ClInclude Include="sorting_and_ranking.h" />
     <ClInclude Include="user_input.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
