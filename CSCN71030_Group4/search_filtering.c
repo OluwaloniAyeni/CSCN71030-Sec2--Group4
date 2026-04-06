@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "search_filtering.h"
+#include "error_handling.h"
 
 Item*loadData(const char* filename, int* count)
 {
@@ -34,9 +35,16 @@ Item*loadData(const char* filename, int* count)
 	}
 
 	int i = 0;
-	while (fgets(line, sizeof(line), file) && i < *count) {
-		sscanf(line, "%d,%49[^,],%49[^,],%f,%f", &items[i].itemID, 
+	while (fgets(line, sizeof(line), file) && i < *count) 
+	{
+	int fieldsRead = sscanf(line, "%d,%49[^,],%49[^,],%f,%f", &items[i].itemID, 
 			items[i].name, items[i].category, &items[i].price, &items[i].rating);
+
+		if (fieldsRead == 5) 
+		{
+			continue;
+		}
+
 		i++;
 	}
 	fclose(file);
