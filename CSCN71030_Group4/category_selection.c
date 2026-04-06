@@ -2,6 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "category_selection.h"
+#include "error_handling.h"
 
 void toLowerCase(char* str)
 {
@@ -31,7 +32,7 @@ void processCategory(char* category)
 
 	if (!isValidCategory(category))
 	{
-		printf("Error: Invalid category\n");
+		handleError("Category Selection Module", "Invalid category selected");
 		return;
 	}
 
