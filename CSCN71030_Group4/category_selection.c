@@ -25,27 +25,15 @@ int isValidCategory(const char* category)
 	return 0;
 }
 
-const char* processCategory(const char* categoryInput)
+void processCategory(char* category)
 {
-	if (categoryInput == NULL)
+	toLowerCase(category);
+
+	if (!isValidCategory(category))
 	{
-		return NULL;
+		printf("Error: Invalid category\n");
+		return;
 	}
 
-	if (strcmp(categoryInput, "gym") == 0)
-	{
-		return "gym";
-	}
-
-	else if (strcmp(categoryInput, "hotel") == 0)
-	{
-		return "hotel";
-	}
-
-	else if (strcmp(categoryInput, "restaurant") == 0)
-	{
-		return "restaurant";
-	}
-
-	return NULL;
+	printf("Category selected: %s\n", category);
 }
