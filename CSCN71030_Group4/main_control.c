@@ -40,7 +40,8 @@ void manageFlow(Item* allItems, int count)
 	}
 
 	Item* filteredItems = filterByBudget(
-		allItems, count, request.category, 0.0f, request.maxBudget, &filteredCount
+		allItems, count, getCategoryString(request.category), 0.0f, 
+		request.maxBudget, &filteredCount
 	);
 
 	if (filteredItems == NULL || filteredCount == 0)
@@ -53,14 +54,18 @@ void manageFlow(Item* allItems, int count)
 	Item* recommendations = generateRecommendations(filteredItems, filteredCount,
 		&recommendationCount);
 
-	if (recommendations == NULL)
+	if (recommendations == NULL || recommendationCount == 0)
 	{
 		printf("Error: Could not generate recommendations:\n");
 		freeResults(filteredItems);
 		return;
 	}
 
+	sortByPrice(recommendations, recommendationCount);
+	rankByRating(recommendations, recommendationCount);
+
 	displayResults(recommendations, recommendationCount);
+
 	freeResults(filteredItems);
 	freeResults(recommendations);
 }
