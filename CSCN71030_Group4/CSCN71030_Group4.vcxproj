@@ -35,6 +35,7 @@
   <ItemGroup>
     <ClInclude Include="budget_handling.h" />
     <ClInclude Include="category_selection.h" />
+    <ClInclude Include="error_handling.h" />
     <ClInclude Include="input_validation.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="main_control.h" />
