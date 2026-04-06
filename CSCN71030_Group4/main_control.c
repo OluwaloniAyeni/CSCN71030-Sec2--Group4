@@ -9,6 +9,22 @@
 #include "sorting_and_ranking.h"
 #include "output_display.h"
 #include "category_selection.h"
+#include "error_handling.h"
+
+const char* getCategoryString(CategoryType category)
+{
+	switch (category)
+	{
+	case GYM:
+		return "gym";
+	case HOTEL:
+		return "hotel";
+	case RESTAURANT:
+		return "restaurant";
+	default:
+		return "";
+	}
+}
 
 int startProgram(const char* filename)
 {
@@ -17,8 +33,8 @@ int startProgram(const char* filename)
 
 	if (allItems == NULL || count <= 0)
 	{
-		printf("Error: Could not load data from file:\n");
-		return 1;
+		handleError("Main Control Module", "Failed to load data");
+		return 0;
 	}
 
 	manageFlow(allItems, count);
@@ -46,17 +62,18 @@ void manageFlow(Item* allItems, int count)
 
 	if (filteredItems == NULL || filteredCount == 0)
 	{
-		printf("No matching results found within your budget:\n");
+		handleError("Search and Filtering Module", "No matching results found");
 		return;
 	}
 
 	int recommendationCount = 0;
+
 	Item* recommendations = generateRecommendations(filteredItems, filteredCount,
 		&recommendationCount);
 
 	if (recommendations == NULL || recommendationCount == 0)
 	{
-		printf("Error: Could not generate recommendations:\n");
+		handleError("Recommendation Module", "Could not generate recommendations");
 		freeResults(filteredItems);
 		return;
 	}

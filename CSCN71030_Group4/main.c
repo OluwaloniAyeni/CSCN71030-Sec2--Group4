@@ -1,27 +1,16 @@
 #include <stdio.h>
-#include "user_input.h"
-#include "input_validation.h"
-#include "budget_handling.h"
-#include"category_selection.h"
-#include"ranking_and_sorting.h"
+#include "main_control.h"
 
-void showWelcomeMessage()
+
+int main() 
 {
-	printf("Welcome to the system\n");
-}
+	const char* filename = "data.txt";
 
-void showExitMessage()
-{
-printf("Thank you for using our system\n");
-}
+	if (!startProgram(filename))
+	{
+		handleError("Main Module", "Program failed to start");
+		return 1;
+	}
 
-
-int main() {
-    UserRequest req = getUserInput();
-
-    if (validateInput(req)) {
-        processBudget(req);
-    }
-
-    return 0;
+	return 0;
 }
