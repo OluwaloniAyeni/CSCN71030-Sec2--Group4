@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "main_control.h"
+#include "user_input.h"
+#include "input_validation.h"
 #include "search_filtering.h"
 #include "recommendation.h"
-#include "user_input.h"
+#include "sorting_and_ranking.h"
+#include "output_display.h"
+#include "category_selection.h"
 
 int startProgram(const char* filename)
 {
@@ -19,7 +24,7 @@ int startProgram(const char* filename)
 	manageFlow(allItems, count);
 
 	freeResults(allItems);
-	return 0;
+	return 1;
 }
 
 void manageFlow(Item* allItems, int count)
@@ -35,7 +40,8 @@ void manageFlow(Item* allItems, int count)
 	}
 
 	Item* filteredItems = filterByBudget(
-		allItems, count, request.category, 0.0f, request.maxBudget, &filteredCount
+		allItems, count, getCategoryString(request.category), 0.0f, 
+		request.maxBudget, &filteredCount
 	);
 
 	if (filteredItems == NULL || filteredCount == 0)
@@ -48,14 +54,18 @@ void manageFlow(Item* allItems, int count)
 	Item* recommendations = generateRecommendations(filteredItems, filteredCount,
 		&recommendationCount);
 
-	if (recommendations == NULL)
+	if (recommendations == NULL || recommendationCount == 0)
 	{
 		printf("Error: Could not generate recommendations:\n");
 		freeResults(filteredItems);
 		return;
 	}
 
+	sortByPrice(recommendations, recommendationCount);
+	rankByRating(recommendations, recommendationCount);
+
 	displayResults(recommendations, recommendationCount);
+
 	freeResults(filteredItems);
 	freeResults(recommendations);
 }
