@@ -4,6 +4,7 @@
 extern "C" {
 #include "../CSCN71030_Group4/item.h"	
 #include "../CSCN71030_Group4/search_filtering.h"
+#include "../CSCN71030_Group4/recommendation.h"
 }
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -53,6 +54,32 @@ namespace SearchFilteringTests
 
 			Assert::IsNull(result);
 			Assert::AreEqual(0, filteredCount);
+		}
+	};
+}
+
+namespace RecommendationTests
+{
+	TEST_CLASS(RecommendationTests)
+	{
+	public:
+		TEST_METHOD(GenerateRecommendations_ReturnsItems)
+		{
+			Item filteredItems[3] = {
+				{1, "Hotel A", "hotel", 100.0f, 4.5f},
+				{2, "Hotel B", "hotel", 150.0f, 4.0f},
+				{3, "Hotel C", "hotel", 200.0f, 3.5f}
+			};
+			int recommendationCount = 0;
+
+			Item* results = generateRecommendations(filteredItems, 3, 
+				"hotel", 0.0f, 200.0f, &recommendationCount);
+
+		Assert::IsNotNull(results);
+		Assert::AreEqual(3, recommendationCount);
+
+		freeRecommendations(results);
+		
 		}
 	};
 }
