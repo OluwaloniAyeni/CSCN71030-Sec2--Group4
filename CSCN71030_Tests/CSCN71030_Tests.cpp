@@ -28,5 +28,31 @@ namespace SearchFilteringTests
 
 			freeResults(result);
 		}
+
+		// No Match
+		TEST_METHOD(FilterByBudget_NoResults)
+		{
+			Item items[2] = {
+				{1, "Gym A", "gym", 500.0f, 4.5f},
+				{2, "Gym B", "gym", 600.0f, 4.0f}
+			};
+
+			int filteredCount = 0;
+			Item* result = filterByBudget(items, 2, "gym", 0.0f, 100.0f, &filteredCount);
+
+			Assert::IsNotNull(result);
+			Assert::AreEqual(0, filteredCount);
+		}
+
+		//NULL INPUT
+		TEST_METHOD(FilterByBudget_NullInput)
+		{
+			int filteredCount = 0;
+
+			Item* result = filterByBudget(NULL, 0, "hotel", 0.0f, 200.0f, &filteredCount);
+
+			Assert::IsNull(result);
+			Assert::AreEqual(0, filteredCount);
+		}
 	};
 }
