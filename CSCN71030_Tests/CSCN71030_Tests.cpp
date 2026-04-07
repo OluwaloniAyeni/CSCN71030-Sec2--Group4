@@ -95,5 +95,21 @@ namespace RecommendationTests
 			Assert::AreEqual(0, recommendationCount);
 		}
 
+		// single matching result input
+		TEST_METHOD(GenerateRecommendations_SingleMatchingResult)
+		{
+			Item filteredItems[1] = {
+				{1, "Hotel A", "hotel", 100.0f, 4.5f} };
+
+			int recommendationCount = 0;
+
+			Item* results = generateRecommendations(filteredItems, 1, &recommendationCount);
+
+			Assert::IsNotNull(results);
+			Assert::AreEqual(1, recommendationCount);
+
+			freeRecommendations(results);
+		}
+
 	};
 }
