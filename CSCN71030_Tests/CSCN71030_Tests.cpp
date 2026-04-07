@@ -81,5 +81,19 @@ namespace RecommendationTests
 		freeRecommendations(results);
 		
 		}
+
+		// empty input
+
+		TEST_METHOD(GenerateRecommenedations_EmptyInput_ReturnsNull)
+		{
+			Item* filteredItems = NULL;
+			int recommendationCount = 0;
+
+			Item* results = generateRecommendations(filteredItems, 0, &recommendationCount);
+
+			Assert::IsNull(results);
+			Assert::AreEqual(0, recommendationCount);
+		}
+
 	};
 }
