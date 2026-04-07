@@ -37,6 +37,7 @@
     <ClCompile Include="user_input.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="error_handling.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input_validation.h">
@@ -70,6 +71,7 @@
     <ClInclude Include="sorting_and_ranking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="error_handling.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
