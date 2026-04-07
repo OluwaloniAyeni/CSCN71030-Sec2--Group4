@@ -44,6 +44,15 @@ namespace SearchFilteringTests
 			Assert::AreEqual(0, filteredCount);
 		}
 
-		
+		//NULL INPUT
+		TEST_METHOD(FilterByBudget_NullInput)
+		{
+			int filteredCount = 0;
+
+			Item* result = filterByBudget(NULL, 0, "hotel", 0.0f, 200.0f, &filteredCount);
+
+			Assert::IsNull(result);
+			Assert::AreEqual(0, filteredCount);
+		}
 	};
 }
