@@ -13,9 +13,6 @@
     <ClCompile Include="data_storage.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="error_handling.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="feature_display.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
     <ClCompile Include="user_input.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="error_handling.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="budget_handling.h">
@@ -51,28 +51,10 @@
     <ClInclude Include="category_selection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="data_storage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="error_handling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="main_control.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="feature_display.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="models.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="output_display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="input_validation.h">
@@ -88,6 +70,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="search_filtering.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="error_handling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data_storage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature_display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="models.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="output_display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
