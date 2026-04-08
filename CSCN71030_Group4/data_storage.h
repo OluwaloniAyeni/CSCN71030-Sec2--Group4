@@ -1,8 +1,5 @@
 #pragma
-#ifndef DATA_STORAGE_H
-#define DATA_STORAGE_H
-
-#include "models.h"
+#include "item.h"
 
 int loadFacilitiesData(const char* filePath, FacilityList* outList);
 int loadBudgetData(const char* filePath, BudgetHistory* outHistory);
@@ -21,5 +18,3 @@ int filterResults(
     size_t* outCount
 );
 void initializeMockData(FacilityList* list);
-
-#endif
