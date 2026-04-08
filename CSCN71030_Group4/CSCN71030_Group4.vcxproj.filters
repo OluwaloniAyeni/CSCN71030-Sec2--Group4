@@ -7,7 +7,13 @@
     <ClCompile Include="category_selection.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="data_storage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="error_handling.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="feature_display.c">
@@ -37,116 +43,63 @@
     <ClCompile Include="user_input.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="error_handling.c" />
-    <ClCompile Include="common.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="input_validation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="budget_handling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="category_selection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main_control.h">
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data_storage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="category_selection.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="error_handling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_control.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="feature_display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="models.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="output_display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="input_validation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="recommendation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="search_filtering.h">
+    <ClInclude Include="sorting_and_ranking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="user_input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sorting_and_ranking.h">
+    <ClInclude Include="search_filtering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{12ff41cc-dc3c-4699-96d9-2a122bbbbf62}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{03bb9c1c-af39-41db-8c20-d7fcf3f0bfd4}</UniqueIdentifier>
+      <UniqueIdentifier>{224f45c8-a426-47fd-b318-16f7ae2f1d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{21b547d9-136e-42d0-8fd0-b0d555b3cbb2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{70ef8c45-d544-4dc6-9061-d76579b55e78}</UniqueIdentifier>
+      <UniqueIdentifier>{fb584b2b-0e44-419d-b9a9-c9c5025b2e67}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

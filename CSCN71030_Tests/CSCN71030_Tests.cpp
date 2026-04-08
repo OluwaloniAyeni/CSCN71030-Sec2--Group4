@@ -72,8 +72,7 @@ namespace RecommendationTests
 			};
 			int recommendationCount = 0;
 
-			Item* results = generateRecommendations(filteredItems, 3, 
-				"hotel", 0.0f, 200.0f, &recommendationCount);
+			Item* results = generateRecommendations(filteredItems, 3, &recommendationCount);
 
 		Assert::IsNotNull(results);
 		Assert::AreEqual(3, recommendationCount);
