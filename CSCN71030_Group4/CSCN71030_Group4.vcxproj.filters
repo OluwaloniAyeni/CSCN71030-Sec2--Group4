@@ -71,7 +71,9 @@
     <ClInclude Include="sorting_and_ranking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="error_handling.h" />
+    <ClInclude Include="error_handling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
