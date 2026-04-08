@@ -1,4 +1,5 @@
-#pragma
+#pragma once
+
 #include "item.h"
 
 int loadFacilitiesData(const char* filePath, FacilityList* outList);
