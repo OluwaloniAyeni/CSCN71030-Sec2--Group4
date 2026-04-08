@@ -1,7 +1,6 @@
-#ifndef FEATURE_DISPLAY_H
-#define FEATURE_DISPLAY_H
+#pragma once
 
-#include "models.h"
+#include "item.h"
 
 int filterFeatures(
     const Facility* input,
@@ -9,6 +8,3 @@ int filterFeatures(
     Facility** output,
     size_t* outputCount
 );
-
-#endif
-
