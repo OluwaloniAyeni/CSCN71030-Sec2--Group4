@@ -37,14 +37,12 @@
   <ItemGroup>
     <ClInclude Include="budget_handling.h" />
     <ClInclude Include="category_selection.h" />
-    <ClInclude Include="common.h" />
     <ClInclude Include="data_storage.h" />
     <ClInclude Include="error_handling.h" />
     <ClInclude Include="feature_display.h" />
     <ClInclude Include="input_validation.h" />
     <ClInclude Include="item.h" />
     <ClInclude Include="main_control.h" />
-    <ClInclude Include="models.h" />
     <ClInclude Include="output_display.h" />
     <ClInclude Include="recommendation.h" />
     <ClInclude Include="search_filtering.h" />
