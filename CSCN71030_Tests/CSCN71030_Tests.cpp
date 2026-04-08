@@ -111,5 +111,7 @@ namespace RecommendationTests
 			freeRecommendations(results);
 		}
 
+		// check sorting by rating (highest first)
+
 	};
 }
