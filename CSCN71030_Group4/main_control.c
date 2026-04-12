@@ -16,18 +16,17 @@
 
 int startProgram(const char* filename)
 {
-	int count = 0;
-	Facility* allItems = loadData(filename, &count);
+	FacilityList list;
 
-	if (allItems == NULL || count <= 0)
+	if(loadFacilitiesData(filename, &list) != 1)
 	{
-		handleError("Main Control Module", "Failed to load data");
+		handleError("Data Storage Module", "Failed to load data");
 		return 0;
 	}
 
-	manageFlow(allItems, count);
+	manageFlow(list.items, (int)list.count);
 
-	freeResults(allItems);
+	free(list.items);
 	return 1;
 }
 
