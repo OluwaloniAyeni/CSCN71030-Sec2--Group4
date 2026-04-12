@@ -120,13 +120,14 @@ static int parseFacilityLine(const char* line, Facility* out) {
     if(token == NULL || !parse_double_strict(token, &price)) {
         return 0;
 	}
-	out->price = price;
+	out->price = (float)price;
 
     token = strtok_s(NULL, "|", &context);
     if(token == NULL || !parse_double_strict(token, &rating)) {
         return 0;
 	}
-    out->rating = rating;
+    out->rating = (float)rating;
+
     token = strtok_s(NULL, "|", &context);
     if(token == NULL) {
         return 0;
@@ -346,39 +347,39 @@ int filterResults(
 
 void initializeMockData(FacilityList* list) {
     Facility defaults[] = {
-        {"Maple Stay Hotel", "hotel", 145.00, 4.5, 1, 1},
-        {"Delta Hotel", "hotel", 333, 4.0, 1, 0},
-         {"Courtyard Hotel", "hotel", 95.00, 4.5, 1, 1},
-        {"Staybridge Hotel", "hotel", 250, 4.0, 1, 0},
-        {"Maple Stay Hotel", "hotel", 145.00, 4.5, 1, 1},
-        {"Holiday Inn Express & Suite Hotel", "hotel", 89.99, 4.0, 1, 0},
-         {"Best Western Plus Cambridge Hotel", "hotel", 145.00, 4.5, 1, 1},
-        {"Waterloo Suites Hotel", "hotel", 89.99, 4.0, 1, 0},
-        {"Hampton Inn & Suites by Hilton", "hotel", 145.00, 4.0, 1, 1},
-        {"The Walper Hotel", "hot el", 89.99, 4.0, 1, 0},
-        {"Sun", "restaurant", 25.00, 4.3, 1, 1},
-        {"The Bauer Kitchen", "restaurant", 100.00, 3.9, 1, 1},
-        {"The Poké Box", "restaurant", 35.00, 4.3, 1, 1},
-        {"The Grand Malabar", "restaurant", 30.00, 5.0, 1, 1},
-        {"Princess Cafe", "restaurant", 20.00, 4.6, 1, 0},
-        {" King Tin Restaurant", "restaurant", 25.00, 3.4, 0, 0},
-        {"Prime Grill", "restaurant", 60.00, 4.7, 1, 1},
-        {"The Jane Bond", "restaurant", 50.00, 3.9, 0, 0},
-        {"Pulse Fitness", "gym", 35.00, 4.2, 1, 1},
-        {"Core Strength Gym", "gym", 22.00, 3.9, 0, 1},
-        {"Crunch Fitness", "gym", 26.00, 4.0, 1, 1},
-        {"Orangetheory Fitness", "gym", 10.00, 3.9, 0, 1},
-        {"Lil's Gym", "gym", 20.00, 5.0, 1, 1},
-        {"Pursuit OCR", "gym", 22.00, 4.4, 0, 0},
-        {"Pulse Fitness", "gym", 35.00, 4.2, 1, 1},
-        {"Core Strength Gym", "gym", 22.00, 3.9, 0, 1},
-        {"Princess Cafe", "cafe", 15.00, 4.6, 1, 0},
-        { "Seven Shores Cafe", "cafe", 15.00, 4.5, 1, 1 },
-        { "Midnight Run Cafe", "cafe", 12.00, 4.4, 1, 0 },
-        { "Cafe 1842", "cafe", 10.00, 4.3, 1, 1 },
-        { "Williams Fresh Cafe", "cafe", 12.00, 4.2, 1, 1 },
-        { "Smile Tiger Coffee Roasters", "cafe", 15.00, 4.6, 1, 1 },
-        { "Monigram Coffee Roasters", "cafe", 15.00, 4.5, 1, 0 },
+        {1,"Maple Stay Hotel", "hotel", 145.00f, 4.5f, 1, 1},
+        {2,"Delta Hotel", "hotel", 333.00f, 4.0f, 1, 0},
+         {3,"Courtyard Hotel", "hotel", 95.00f, 4.5f, 1, 1},
+        {4,"Staybridge Hotel", "hotel", 250.00f, 4.0f, 1, 0},
+        {5,"Maple Stay Hotel", "hotel", 145.00f, 4.5f, 1, 1},
+        {6,"Holiday Inn Express & Suite Hotel", "hotel", 89.99f, 4.0f , 1, 0},
+         {7,"Best Western Plus Cambridge Hotel", "hotel", 145.00f, 4.5f, 1, 1},
+        {8,"Waterloo Suites Hotel", "hotel", 89.99f, 4.0f, 1, 0},
+        {9,"Hampton Inn & Suites by Hilton", "hotel", 145.00f, 4.0f, 1, 1},
+        {10,"The Walper Hotel", "hot el", 89.99f, 4.0f, 1, 0},
+        {11,"Sun", "restaurant", 25.00f, 4.3f, 1, 1},
+        {12,"The Bauer Kitchen", "restaurant", 100.00f, 3.9f, 1, 1},
+        {13,"The Poké Box", "restaurant", 35.00f, 4.3f, 1, 1},
+        {14,"The Grand Malabar", "restaurant", 30.00f, 5.0f, 1, 1},
+        {15,"Princess Cafe", "restaurant", 20.00f, 4.6f, 1, 0},
+        {16," King Tin Restaurant", "restaurant", 25.00f, 3.4f, 0, 0},
+        {17,"Prime Grill", "restaurant", 60.00f, 4.7f, 1, 1},
+        {18,"The Jane Bond", "restaurant", 50.00f, 3.9f, 0, 0},
+        {19,"Pulse Fitness", "gym", 35.00f, 4.2f, 1, 1},
+        {20,"Core Strength Gym", "gym", 22.00f, 3.9f, 0, 1},
+        {21,"Crunch Fitness", "gym", 26.00f, 4.0f, 1, 1},
+        {22,"Orangetheory Fitness", "gym", 10.00f, 3.9f, 0, 1},
+        {23,"Lil's Gym", "gym", 20.00f, 5.0f, 1, 1},
+        {24,"Pursuit OCR", "gym", 22.00f, 4.4f, 0, 0},
+        {25,"Pulse Fitness", "gym", 35.00f, 4.2f, 1, 1},
+        {26,"Core Strength Gym", "gym", 22.00f, 3.9f, 0, 1},
+        {27,"Princess Cafe", "cafe", 15.00f, 4.6f, 1, 0},
+        {28,"Seven Shores Cafe", "cafe", 15.00f, 4.5f, 1, 1},
+        {29,"Midnight Run Cafe", "cafe", 12.00f, 4.4f, 1, 0},
+        {30,"Cafe 1842", "cafe", 10.00f, 4.3f, 1, 1},
+        {31,"Williams Fresh Cafe", "cafe", 12.00f, 4.2f, 1, 1},
+        {32,"Smile Tiger Coffee Roasters", "cafe", 15.00f, 4.6f, 1, 1},
+        {33,"Monigram Coffee Roasters", "cafe", 15.00f, 4.5f, 1, 0},
         
     };
     size_t i;
