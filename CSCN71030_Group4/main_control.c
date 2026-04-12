@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "item.h"
 #include "main_control.h"
 #include "user_input.h"
+#include "data_storage.h"
 #include "input_validation.h"
 #include "search_filtering.h"
 #include "recommendation.h"
@@ -11,35 +13,20 @@
 #include "category_selection.h"
 #include "error_handling.h"
 
-const char* getCategoryString(CategoryType category)
-{
-	switch (category)
-	{
-	case GYM:
-		return "gym";
-	case HOTEL:
-		return "hotel";
-	case RESTAURANT:
-		return "restaurant";
-	default:
-		return "";
-	}
-}
 
 int startProgram(const char* filename)
 {
-	int count = 0;
-	Facility* allItems = loadData(filename, &count);
+	FacilityList list;
 
-	if (allItems == NULL || count <= 0)
+	if(loadFacilitiesData(filename, &list) != 1)
 	{
-		handleError("Main Control Module", "Failed to load data");
+		handleError("Data Storage Module", "Failed to load data");
 		return 0;
 	}
 
-	manageFlow(allItems, count);
+	manageFlow(list.items, (int)list.count);
 
-	freeResults(allItems);
+	free(list.items);
 	return 1;
 }
 
@@ -56,8 +43,8 @@ void manageFlow(Facility* allItems, int count)
 	}
 
 	Facility* filteredItems = filterByBudget(
-		allItems, count, getCategoryString(request.category), 0.0f, 
-		request.maxBudget, &filteredCount
+		allItems, count, request.category, 0.0f, 
+		(float)request.budget, &filteredCount
 	);
 
 	if (filteredItems == NULL || filteredCount == 0)
@@ -81,29 +68,9 @@ void manageFlow(Facility* allItems, int count)
 	sortByPrice(recommendations, recommendationCount);
 	rankByRating(recommendations, recommendationCount);
 
-	displayResults(recommendations, recommendationCount);
+	displayResults(&request, recommendations, recommendationCount);
 
 	freeResults(filteredItems);
 	freeResults(recommendations);
 }
 
-void displayResults(Facility* recommendations, int count)
-{
-	if (recommendations == NULL || count <= 0)
-	{
-		printf("No results to display:\n");
-		return;
-	}
-
-	printf("\nRecommended Results:\n");
-
-	for (int i = 0; i < count; i++)
-	{
-		printf("%d. %s | Category: %s | Price: $%.2f | Rating: %.1f\n",
-			i + 1,
-			recommendations[i].name,
-			recommendations[i].category,
-			recommendations[i].price,
-			recommendations[i].rating);
-	}
-}

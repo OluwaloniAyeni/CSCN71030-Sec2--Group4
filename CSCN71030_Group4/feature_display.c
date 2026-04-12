@@ -1,5 +1,5 @@
  #include "feature_display.h"
-
+#include "common.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,7 +16,7 @@ static int askYesNoOptional(const char* prompt, int* mustBeYes) {
 
 	printf("%s [y/n, Enter to skip]: ", prompt);
 
-	if (fget(line, sizeof(line), stdin) == NULL) {
+	if (fgets(line, sizeof(line), stdin) == NULL) {
 
 		return 0;
 	}

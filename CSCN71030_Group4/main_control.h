@@ -3,4 +3,4 @@
 
 int startProgram(const char* filename);
 void manageFlow(Facility* allItems, int count);
-void displayResults(Facility* recommendations, int count);
+

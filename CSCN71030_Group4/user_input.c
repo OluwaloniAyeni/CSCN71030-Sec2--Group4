@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "user_input.h"
 
 UserRequest getUserInput() {
@@ -14,20 +15,20 @@ UserRequest getUserInput() {
 
     switch (choice) {
     case 1:
-        req.category = GYM;
+        strcpy_s(req.category, sizeof(req.category), "gym");
         break;
     case 2:
-        req.category = HOTEL;
+        strcpy_s(req.category, sizeof(req.category), "hotel");
         break;
     case 3:
-        req.category = RESTAURANT;
+        strcpy_s(req.category, sizeof(req.category), "restaurant");
         break;
     default:
-        req.category = RESTAURANT;
+        strcpy_s(req.category, sizeof(req.category), "restaurant");
     }
 
     printf("Enter your maximum budget: ");
-    scanf_s("%f", &req.maxBudget);
+    scanf_s("%lf", &req.budget);
 
     return req;
 }
