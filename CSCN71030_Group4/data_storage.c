@@ -1,5 +1,5 @@
 #include "data_storage.h"
-
+#include "common.h"
 #include "category_selection.h"
 #include "item.h"
 #include "error_handling.h"
@@ -112,7 +112,7 @@ static int parseFacilityLine(const char* line, Facility* out) {
 	}
     safe_strcpy(out->category, sizeof(out->category), token);
 	processCategory(out->category);
-    if(!isSupportedCategory(out->category)) {
+    if(!isValidCategory(out->category)) {
         return 0;
 	}
 
