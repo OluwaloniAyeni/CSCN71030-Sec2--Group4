@@ -154,7 +154,10 @@ int loadFacilitiesData(const char* filePath, FacilityList* outList) {
     outList->count = 0;
 
    if (fopen_s(&file,filePath, "r") != 0) {
-        return 0;
+
+       printf("File not found, loading mock data..\n");
+	   initializeMockData(outList);
+        return 1;
     }
 
     while (fgets(line, sizeof(line), file) != NULL) {
@@ -356,7 +359,7 @@ void initializeMockData(FacilityList* list) {
          {7,"Best Western Plus Cambridge Hotel", "hotel", 145.00f, 4.5f, 1, 1},
         {8,"Waterloo Suites Hotel", "hotel", 89.99f, 4.0f, 1, 0},
         {9,"Hampton Inn & Suites by Hilton", "hotel", 145.00f, 4.0f, 1, 1},
-        {10,"The Walper Hotel", "hot el", 89.99f, 4.0f, 1, 0},
+        {10,"The Walper Hotel", "hotel", 89.99f, 4.0f, 1, 0},
         {11,"Sun", "restaurant", 25.00f, 4.3f, 1, 1},
         {12,"The Bauer Kitchen", "restaurant", 100.00f, 3.9f, 1, 1},
         {13,"The Poké Box", "restaurant", 35.00f, 4.3f, 1, 1},

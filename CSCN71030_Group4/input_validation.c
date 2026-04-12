@@ -11,7 +11,8 @@ int validateInput(UserRequest req) {
 
     if (strcmp(req.category, "gym") != 0 
         && strcmp(req.category, "hotel") != 0 
-        && strcmp(req.category, "restaurant") != 0) {
+        && strcmp(req.category, "restaurant") != 0)  {
+        && strcmp(req.category, "cafe") != 0) {
         printf("Error: Invalid category.\n");
         return 0;
     }

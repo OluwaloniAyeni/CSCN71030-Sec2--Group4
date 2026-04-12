@@ -19,7 +19,8 @@ int isValidCategory(const char* category)
 	}
 	if (strcmp(category, "gym") == 0 ||
 		strcmp(category, "hotel") == 0 ||
-		strcmp(category, "restaurant") == 0)
+		strcmp(category, "restaurant") == 0 ||
+		strcmp(category, "cafe") == 0)
 	{
 		return 1;
 	}
