@@ -154,8 +154,6 @@ int loadFacilitiesData(const char* filePath, FacilityList* outList) {
     outList->count = 0;
 
    if (fopen_s(&file,filePath, "r") != 0) {
-
-       printf("File not found, loading mock data..\n");
 	   initializeMockData(outList);
         return 1;
     }
