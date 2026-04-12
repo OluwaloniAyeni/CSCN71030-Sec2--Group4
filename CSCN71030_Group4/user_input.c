@@ -10,6 +10,7 @@ UserRequest getUserInput() {
     printf("1. Gym\n");
     printf("2. Hotel\n");
     printf("3. Restaurant\n");
+	printf("4. Cafe\n");
     printf("Enter choice: ");
     scanf_s("%d", &choice);
 
@@ -23,6 +24,9 @@ UserRequest getUserInput() {
     case 3:
         strcpy_s(req.category, sizeof(req.category), "restaurant");
         break;
+	case 4:
+        strcpy_s(req.category, sizeof(req.category), "cafe");
+		break;
     default:
         strcpy_s(req.category, sizeof(req.category), "restaurant");
     }
