@@ -46,7 +46,7 @@ void trim_spaces(char* s) {
     s[end - start] = '\0';
 }
 
-void to_lowercase(char* s) {
+void toLowercase(char* s) {
     size_t i;
 
     if (s == NULL) {

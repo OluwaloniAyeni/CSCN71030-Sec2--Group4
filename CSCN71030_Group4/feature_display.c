@@ -23,7 +23,7 @@ static int askYesNoOptional(const char* prompt, int* mustBeYes) {
 
 	trim_newline(line);
 	trim_spaces(line);
-	to_lowercase(line);
+	toLowercase(line);
 
 	if (line[0] == '\0') {
 
