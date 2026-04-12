@@ -268,8 +268,7 @@ int saveDataToFile(const char* filePath, const FacilityList* list) {
         return 0;
     }
 
-    file = fopen_s(filePath, "w", &context);
-    if (file == NULL) {
+    if (fopen_s(&file, filePath, "w") != 0) {
         handleError("DataStorage", "Could not open facilities output file for writing.");
         return 0;
     }
@@ -298,8 +297,7 @@ int saveBudgetDataToFile(const char* filePath, const BudgetHistory* history) {
         return 0;
     }
 
-    file = fopen_s(filePath, "w", &context);
-    if (file == NULL) {
+    if (fopen_s(&file, filePath, "w") != 0) {
         handleError("DataStorage", "Could not open budget history file for writing.");
         return 0;
     }
