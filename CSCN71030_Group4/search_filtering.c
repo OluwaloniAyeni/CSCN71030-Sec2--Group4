@@ -6,33 +6,6 @@
 
 
 
-	
-
-	Facility* items = (Facility*)malloc((*count) * sizeof(Facility));
-	if (items == NULL) {
-		fclose(file);
-		*count = 0;
-		return NULL;
-	}
-
-	int i = 0;
-	while (fgets(line, sizeof(line), file) && i < *count) 
-	{
-	int fieldsRead = sscanf(line, "%d,%49[^,],%49[^,],%f,%f,%d,%d", &items[i].facilityID, 
-			items[i].name, items[i].category, &items[i].price, &items[i].rating, 
-		&items[i].hasWifi, &items[i].hasParking);
-
-		if (fieldsRead == 7) 
-		{
-			continue;
-		}
-
-		i++;
-	}
-	fclose(file);
-	return items;
-}
-
 Facility* filterByBudget(Facility* list, int count, const char* category, float minBudget,
 	float maxBudget, int* filteredCount)
 {
