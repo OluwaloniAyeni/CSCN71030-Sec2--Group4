@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef BUDGET_HANDLING_H
-#define BUDGET_HANDLING_H
-
 #include "user_input.h"
 
 typedef struct {
@@ -13,5 +10,3 @@ typedef struct {
 } Item;
 
 void processBudget(UserRequest req);
-
-#endif
