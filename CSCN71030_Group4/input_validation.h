@@ -1,6 +1,7 @@
 #pragma once
 
-#include "user_input.h"
+
+#include "item.h"
 
 int validateInput(UserRequest req);
 
