@@ -1,4 +1,6 @@
 #pragma once
+#ifndef USER_INPUT_H
+#define USER_INPUT_H
 
 typedef enum {
     GYM,
@@ -12,3 +14,5 @@ typedef struct {
 } UserRequest;
 
 UserRequest getUserInput();
+
+#endif
