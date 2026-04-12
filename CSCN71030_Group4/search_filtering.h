@@ -2,6 +2,6 @@
 
 #include "item.h"
 
-Item* loadData(const char* filename, int* count);
-Item* filterByBudget(Item* list, int count, const char* category, float minBudget, float maxBudget, int* filteredCount);
-void freeResults(Item* list);
+Facility* loadData(const char* filename, int* count);
+Facility* filterByBudget(Facility* list, int count, const char* category, float minBudget, float maxBudget, int* filteredCount);
+void freeResults(Facility* list);

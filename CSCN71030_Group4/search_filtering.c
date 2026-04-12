@@ -4,7 +4,7 @@
 #include "search_filtering.h"
 #include "error_handling.h"
 
-Item*loadData(const char* filename, int* count)
+Facility*loadData(const char* filename, int* count)
 {
 	FILE* file = fopen(filename, "r");
 	char line[200];
@@ -27,7 +27,7 @@ Item*loadData(const char* filename, int* count)
 
 	rewind(file);
 
-	Item* items = (Item*)malloc((*count) * sizeof(Item));
+	Facility* items = (Facility*)malloc((*count) * sizeof(Facility));
 	if (items == NULL) {
 		fclose(file);
 		*count = 0;
@@ -37,7 +37,7 @@ Item*loadData(const char* filename, int* count)
 	int i = 0;
 	while (fgets(line, sizeof(line), file) && i < *count) 
 	{
-	int fieldsRead = sscanf(line, "%d,%49[^,],%49[^,],%f,%f", &items[i].itemID, 
+	int fieldsRead = sscanf(line, "%d,%49[^,],%49[^,],%f,%f", &items[i].facilityID, 
 			items[i].name, items[i].category, &items[i].price, &items[i].rating);
 
 		if (fieldsRead == 5) 
@@ -51,7 +51,7 @@ Item*loadData(const char* filename, int* count)
 	return items;
 }
 
-Item* filterByBudget(Item* list, int count, const char* category, float minBudget,
+Facility* filterByBudget(Facility* list, int count, const char* category, float minBudget,
 	float maxBudget, int* filteredCount)
 {
 	*filteredCount = 0;
@@ -67,7 +67,7 @@ Item* filterByBudget(Item* list, int count, const char* category, float minBudge
 		return NULL;
 	}
 
-	Item* filtered = (Item*)malloc((*filteredCount) * sizeof(Item));
+	Facility* filtered = (Facility*)malloc((*filteredCount) * sizeof(Facility));
 	if (filtered == NULL)
 		{
 		*filteredCount = 0;
@@ -84,7 +84,7 @@ Item* filterByBudget(Item* list, int count, const char* category, float minBudge
 	return filtered;
 }
 
-void freeResults(Item* list)
+void freeResults(Facility* list)
 {
 	free(list);
 }

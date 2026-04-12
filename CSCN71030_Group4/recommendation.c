@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "recommendation.h"
 
-Item* generateRecommendations(Item* filteredlist, int count, int* recommendationCount)
+Facility* generateRecommendations(Facility* filteredlist, int count, int* recommendationCount)
 {
 	if (filteredlist == NULL || count == 0) 
 	{
@@ -9,7 +9,7 @@ Item* generateRecommendations(Item* filteredlist, int count, int* recommendation
 		return NULL;
 	}
 
-	Item* recommendations = (Item*)malloc(count * sizeof(Item));
+	Facility* recommendations = (Facility*)malloc(count * sizeof(Facility));
 	if (recommendations == NULL) 
 	{
 		*recommendationCount = 0;
@@ -25,7 +25,7 @@ Item* generateRecommendations(Item* filteredlist, int count, int* recommendation
 	return recommendations;
 }
 
-void sortByPrice(Item* list, int count)
+void sortByPrice(Facility* list, int count)
 {
 	for (int i = 0; i < count - 1; i++) 
 	{
@@ -33,7 +33,7 @@ void sortByPrice(Item* list, int count)
 		{
 			if (list[j].price > list[j + 1].price) 
 			{
-				Item temp = list[j];
+				Facility temp = list[j];
 				list[j] = list[j + 1];
 				list[j + 1] = temp;
 			}
@@ -41,7 +41,7 @@ void sortByPrice(Item* list, int count)
 	}
 }
 
-void freeRecommendations(Item* recommendations)
+void freeRecommendations(Facility* recommendations)
 {
 	free(recommendations);
 }
