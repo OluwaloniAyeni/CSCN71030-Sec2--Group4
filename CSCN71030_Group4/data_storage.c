@@ -1,5 +1,5 @@
 #include "data_storage.h"
-
+#include "common.h"
 #include "category_selection.h"
 #include "item.h"
 #include "error_handling.h"
@@ -106,44 +106,39 @@ static int parseFacilityLine(const char* line, Facility* out) {
 
     
 
-    token = strtok_s(buffer, "|", &context);
+    token = strtok_s(NULL, "|", &context);
     if (token == NULL) {
         return 0;
-    }
+	}
     safe_strcpy(out->category, sizeof(out->category), token);
-    processCategory(out->category);
-    if (!isSupportedCategory(out->category)) {
+	processCategory(out->category);
+    if(!isValidCategory(out->category)) {
         return 0;
-    }
+	}
 
-    token = strtok_s(buffer, "|", &context);
-    if (token == NULL || !parse_double_strict(token, &price)) {
+	token = strtok_s(NULL, "|", &context);
+    if(token == NULL || !parse_double_strict(token, &price)) {
         return 0;
-    }
-    out->price = price;
+	}
+	out->price = price;
 
-    token = strtok_s(buffer, "|", &context);
-    if (token == NULL || !parse_double_strict(token, &rating)) {
+    token = strtok_s(NULL, "|", &context);
+    if(token == NULL || !parse_double_strict(token, &rating)) {
         return 0;
-    }
+	}
     out->rating = rating;
-
-
-    token = strtok_s(buffer, "|", &context);
-    if (token == NULL ) {
+    token = strtok_s(NULL, "|", &context);
+    if(token == NULL) {
         return 0;
-    }
-    out->hasWifi = atoi(token) != 0;
-   
+	}   
+	out->hasWifi = atoi(token) != 0;
 
-    token = strtok_s(buffer, "|", &context);
-    if (token == NULL) {
+    token = strtok_s(NULL, "|", &context);
+    if(token == NULL) {
         return 0;
-    }
+	}
     out->hasParking = atoi(token) != 0;
-
-    return 1;
-
+	return 1;
 }
 
 int loadFacilitiesData(const char* filePath, FacilityList* outList) {
@@ -273,8 +268,7 @@ int saveDataToFile(const char* filePath, const FacilityList* list) {
         return 0;
     }
 
-    file = fopen_s(filePath, "w", &context);
-    if (file == NULL) {
+    if (fopen_s(&file, filePath, "w") != 0) {
         handleError("DataStorage", "Could not open facilities output file for writing.");
         return 0;
     }
@@ -303,8 +297,7 @@ int saveBudgetDataToFile(const char* filePath, const BudgetHistory* history) {
         return 0;
     }
 
-    file = fopen_s(filePath, "w", &context);
-    if (file == NULL) {
+    if (fopen_s(&file, filePath, "w") != 0) {
         handleError("DataStorage", "Could not open budget history file for writing.");
         return 0;
     }
@@ -362,7 +355,7 @@ void initializeMockData(FacilityList* list) {
          {"Best Western Plus Cambridge Hotel", "hotel", 145.00, 4.5, 1, 1},
         {"Waterloo Suites Hotel", "hotel", 89.99, 4.0, 1, 0},
         {"Hampton Inn & Suites by Hilton", "hotel", 145.00, 4.0, 1, 1},
-        {"The Walper Hotel", "hotel", 89.99, 4.0, 1, 0},
+        {"The Walper Hotel", "hot el", 89.99, 4.0, 1, 0},
         {"Sun", "restaurant", 25.00, 4.3, 1, 1},
         {"The Bauer Kitchen", "restaurant", 100.00, 3.9, 1, 1},
         {"The Poké Box", "restaurant", 35.00, 4.3, 1, 1},

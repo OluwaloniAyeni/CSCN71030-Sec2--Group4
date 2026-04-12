@@ -2,5 +2,5 @@
 
 #include "item.h"
 
-void sortByPrice(Item* items, int count);
-void rankByRating(Item* items, int count);
+void sortByPrice(Facility* items, int count);
+void rankByRating(Facility* items, int count);

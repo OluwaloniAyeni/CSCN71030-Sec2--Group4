@@ -4,59 +4,22 @@
 #include "search_filtering.h"
 #include "error_handling.h"
 
-Item*loadData(const char* filename, int* count)
-{
-	FILE* file = fopen(filename, "r");
-	char line[200];
 
-	if (file == NULL) {
-		handleError("Data Loading Module", "Failed to open file");
-		*count = 0;
-		return NULL;
-	}
-	*count = 0;
-	while (fgets(line, sizeof(line), file)) {
-		if (strlen(line) > 1) {
-			(*count)++;
-		}
-	}
-	if (*count == 0) {
-		fclose(file);
-		return NULL;
-	}
 
-	rewind(file);
-
-	Item* items = (Item*)malloc((*count) * sizeof(Item));
-	if (items == NULL) {
-		fclose(file);
-		*count = 0;
-		return NULL;
-	}
-
-	int i = 0;
-	while (fgets(line, sizeof(line), file) && i < *count) 
-	{
-	int fieldsRead = sscanf(line, "%d,%49[^,],%49[^,],%f,%f", &items[i].itemID, 
-			items[i].name, items[i].category, &items[i].price, &items[i].rating);
-
-		if (fieldsRead == 5) 
-		{
-			continue;
-		}
-
-		i++;
-	}
-	fclose(file);
-	return items;
-}
-
-Item* filterByBudget(Item* list, int count, const char* category, float minBudget,
+Facility* filterByBudget(Facility* list, int count, const char* category, float minBudget,
 	float maxBudget, int* filteredCount)
 {
+	int i;
+	int j;
+	Facility* filtered;
+
 	*filteredCount = 0;
 
-	for (int i = 0; i < count; i++) {
+	if (list == NULL || category == NULL || filteredCount == NULL) {
+		return NULL;
+	}
+
+	for (i = 0; i < count; i++) {
 		if (strcmp(list[i].category, category) == 0 &&
 			list[i].price >= minBudget && list[i].price <= maxBudget) {
 			(*filteredCount)++;
@@ -67,7 +30,7 @@ Item* filterByBudget(Item* list, int count, const char* category, float minBudge
 		return NULL;
 	}
 
-	Item* filtered = (Item*)malloc((*filteredCount) * sizeof(Item));
+	Facility* filtered = (Facility*)malloc((*filteredCount) * sizeof(Facility));
 	if (filtered == NULL)
 		{
 		*filteredCount = 0;
@@ -75,6 +38,7 @@ Item* filterByBudget(Item* list, int count, const char* category, float minBudge
 	}
 
 	int j = 0;
+
 	for (int i = 0; i < count; i++) {
 		if (strcmp(list[i].category, category) == 0 &&
 			list[i].price >= minBudget && list[i].price <= maxBudget) {
@@ -84,7 +48,7 @@ Item* filterByBudget(Item* list, int count, const char* category, float minBudge
 	return filtered;
 }
 
-void freeResults(Item* list)
+void freeResults(Facility* list)
 {
 	free(list);
 }

@@ -29,7 +29,7 @@ const char* getCategoryString(CategoryType category)
 int startProgram(const char* filename)
 {
 	int count = 0;
-	Item* allItems = loadData(filename, &count);
+	Facility* allItems = loadData(filename, &count);
 
 	if (allItems == NULL || count <= 0)
 	{
@@ -43,7 +43,7 @@ int startProgram(const char* filename)
 	return 1;
 }
 
-void manageFlow(Item* allItems, int count)
+void manageFlow(Facility* allItems, int count)
 {
 	int filteredCount = 0;
 
@@ -55,7 +55,7 @@ void manageFlow(Item* allItems, int count)
 		return;
 	}
 
-	Item* filteredItems = filterByBudget(
+	Facility* filteredItems = filterByBudget(
 		allItems, count, getCategoryString(request.category), 0.0f, 
 		request.maxBudget, &filteredCount
 	);
@@ -68,7 +68,7 @@ void manageFlow(Item* allItems, int count)
 
 	int recommendationCount = 0;
 
-	Item* recommendations = generateRecommendations(filteredItems, filteredCount,
+	Facility* recommendations = generateRecommendations(filteredItems, filteredCount,
 		&recommendationCount);
 
 	if (recommendations == NULL || recommendationCount == 0)
@@ -87,7 +87,7 @@ void manageFlow(Item* allItems, int count)
 	freeResults(recommendations);
 }
 
-void displayResults(Item* recommendations, int count)
+void displayResults(Facility* recommendations, int count)
 {
 	if (recommendations == NULL || count <= 0)
 	{

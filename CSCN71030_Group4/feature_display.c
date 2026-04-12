@@ -1,4 +1,4 @@
-#include "feature_display.h"
+ #include "feature_display.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +6,7 @@
 
 
 static int askYesNoOptional(const char* prompt, int* mustBeYes) {
-	char line[32];
+	char line[32] = " ";
 
 	if (mustBeYes == NULL) {
 
@@ -23,7 +23,7 @@ static int askYesNoOptional(const char* prompt, int* mustBeYes) {
 
 	trim_newline(line);
 	trim_spaces(line);
-	to_lowercase(line);
+	toLowercase(line);
 
 	if (line[0] == '\0') {
 
@@ -67,7 +67,11 @@ int filterFeatures(
     *output = NULL;
     *outputCount = 0;
 
-    if (input == NULL || inputCount == 0) {
+    if (input == NULL){
+        return 0;
+    }
+    if (inputCount == 0)
+    {
         return 1;
     }
 
