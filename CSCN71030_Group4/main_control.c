@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "item.h"
 #include "main_control.h"
 #include "user_input.h"
+#include "data_storage.h"
 #include "input_validation.h"
 #include "search_filtering.h"
 #include "recommendation.h"
@@ -11,20 +13,6 @@
 #include "category_selection.h"
 #include "error_handling.h"
 
-const char* getCategoryString(CategoryType category)
-{
-	switch (category)
-	{
-	case GYM:
-		return "gym";
-	case HOTEL:
-		return "hotel";
-	case RESTAURANT:
-		return "restaurant";
-	default:
-		return "";
-	}
-}
 
 int startProgram(const char* filename)
 {
@@ -56,8 +44,8 @@ void manageFlow(Facility* allItems, int count)
 	}
 
 	Facility* filteredItems = filterByBudget(
-		allItems, count, getCategoryString(request.category), 0.0f, 
-		request.maxBudget, &filteredCount
+		allItems, count, request.category, 0.0f, 
+		(float)request.budget, &filteredCount
 	);
 
 	if (filteredItems == NULL || filteredCount == 0)

@@ -1,15 +1,5 @@
 #pragma once
-
-typedef enum {
-    GYM,
-    HOTEL,
-    RESTAURANT
-} CategoryType;
-
-typedef struct {
-    CategoryType category;
-    float maxBudget;
-} UserRequest;
+#include "item.h"
 
 UserRequest getUserInput();
 
