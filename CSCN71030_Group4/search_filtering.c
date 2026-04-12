@@ -30,16 +30,16 @@ Facility* filterByBudget(Facility* list, int count, const char* category, float 
 		return NULL;
 	}
 
-	Facility* filtered = (Facility*)malloc((*filteredCount) * sizeof(Facility));
+	filtered = (Facility*)malloc((*filteredCount) * sizeof(Facility));
 	if (filtered == NULL)
 		{
 		*filteredCount = 0;
 		return NULL;
 	}
 
-	int j = 0;
+	j = 0;
 
-	for (int i = 0; i < count; i++) {
+	for (i = 0; i < count; i++) {
 		if (strcmp(list[i].category, category) == 0 &&
 			list[i].price >= minBudget && list[i].price <= maxBudget) {
 			filtered[j++] = list[i];
