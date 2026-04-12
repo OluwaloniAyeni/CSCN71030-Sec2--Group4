@@ -120,13 +120,14 @@ static int parseFacilityLine(const char* line, Facility* out) {
     if(token == NULL || !parse_double_strict(token, &price)) {
         return 0;
 	}
-	out->price = price;
+	out->price = (float)price;
 
     token = strtok_s(NULL, "|", &context);
     if(token == NULL || !parse_double_strict(token, &rating)) {
         return 0;
 	}
-    out->rating = rating;
+    out->rating = (float)rating;
+
     token = strtok_s(NULL, "|", &context);
     if(token == NULL) {
         return 0;
