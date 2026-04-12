@@ -3,6 +3,11 @@
 
 Facility* generateRecommendations(Facility* filteredlist, int count, int* recommendationCount)
 {
+	if (recommendationCount == NULL) 
+	{
+		return NULL;
+	}
+
 	if (filteredlist == NULL || count == 0) 
 	{
 		*recommendationCount = 0;
