@@ -37,10 +37,11 @@ Facility*loadData(const char* filename, int* count)
 	int i = 0;
 	while (fgets(line, sizeof(line), file) && i < *count) 
 	{
-	int fieldsRead = sscanf(line, "%d,%49[^,],%49[^,],%f,%f", &items[i].facilityID, 
-			items[i].name, items[i].category, &items[i].price, &items[i].rating);
+	int fieldsRead = sscanf(line, "%d,%49[^,],%49[^,],%f,%f,%d,%d", &items[i].facilityID, 
+			items[i].name, items[i].category, &items[i].price, &items[i].rating, 
+		&items[i].hasWifi, &items[i].hasParking);
 
-		if (fieldsRead == 5) 
+		if (fieldsRead == 7) 
 		{
 			continue;
 		}
