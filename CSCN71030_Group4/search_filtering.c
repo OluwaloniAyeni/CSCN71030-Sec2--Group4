@@ -4,28 +4,9 @@
 #include "search_filtering.h"
 #include "error_handling.h"
 
-Facility*loadData(const char* filename, int* count)
-{
-	FILE* file = fopen(filename, "r");
-	char line[200];
 
-	if (file == NULL) {
-		handleError("Data Loading Module", "Failed to open file");
-		*count = 0;
-		return NULL;
-	}
-	*count = 0;
-	while (fgets(line, sizeof(line), file)) {
-		if (strlen(line) > 1) {
-			(*count)++;
-		}
-	}
-	if (*count == 0) {
-		fclose(file);
-		return NULL;
-	}
 
-	rewind(file);
+	
 
 	Facility* items = (Facility*)malloc((*count) * sizeof(Facility));
 	if (items == NULL) {
