@@ -38,7 +38,6 @@ void manageFlow(Facility* allItems, int count)
 
 	if(!validateInput(request))
 	{
-		printf("Error: Invalid user input:\n");
 		return;
 	}
 
