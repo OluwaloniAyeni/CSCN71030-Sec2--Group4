@@ -97,7 +97,7 @@ int startProgram(const char* filename)
 /**
  * @brief Manages one complete search flow.
  * @details This function gets user input, validates it, filters facilities,
- *          generates recommendations, sorts and ranks them, and displays results.
+ * generates recommendations, sorts and ranks them, and displays results.
  * @author Oluwaloni Ayeni
  * @param allItems Pointer to all loaded facilities.
  * @param count Number of facilities in the list.
