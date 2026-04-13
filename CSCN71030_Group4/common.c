@@ -11,7 +11,7 @@
  * @brief Contains common helper functions used in the system.
  * @details This file provides utility functions for cleaning strings,
  * converting text, comparing strings, parsing numbers, and safely copying strings.
- * @author Oluwaloni Ayeni
+ * @author Evangeline Singh
  * @date 2026-04-13
  */
 
@@ -20,7 +20,7 @@
   * @brief Removes newline characters from a string.
   * @details This function removes trailing '\n' and '\r' characters
   * from the end of a string.
-  * @author Oluwaloni Ayeni
+  * @author Evangeline Singh
   * @param s Pointer to the string to modify.
   * @return void
   * @date 2026-04-13
@@ -86,8 +86,8 @@ void trim_spaces(char* s) {
 /**
  * @brief Converts a string to lowercase.
  * @details This function changes all uppercase letters in the string
- *          to lowercase letters.
- * @author Oluwaloni Ayeni
+ * to lowercase letters.
+ * @author Evangeline Singh
  * @param s Pointer to the string to modify.
  * @return void
  * @date 2026-04-13
@@ -110,7 +110,7 @@ void toLowercase(char* s) {
  * @brief Compares two strings without considering letter case.
  * @details This function checks whether two strings are equal
  * even if their uppercase and lowercase letters differ.
- * @author Oluwaloni Ayeni
+ * @author Evangeline Singh
  * @param a First string.
  * @param b Second string.
  * @return int Returns 1 if equal, otherwise 0.
@@ -140,7 +140,7 @@ int strings_equal_ignore_case(const char* a, const char* b) {
  * @brief Converts a string into a double value.
  * @details This function strictly parses a string to a double
  * and returns failure if invalid characters are found.
- * @author Oluwaloni Ayeni
+ * @author Oluwaloni Ayeni and Evangeline Singh
  * @param text Input string to parse.
  * @param out Pointer to store the converted double value.
  * @return int Returns 1 if conversion is successful, otherwise 0.
@@ -176,7 +176,7 @@ int parse_double_strict(const char* text, double* out) {
  * @brief Safely copies one string into another.
  * @details This function copies a source string into a destination
  * string while preventing buffer overflow.
- * @author Oluwaloni Ayeni
+ * @author Oluwaloni Ayeni and Evangeline Singh
  * @param dest Destination string.
  * @param destSize Size of the destination buffer.
  * @param src Source string.
