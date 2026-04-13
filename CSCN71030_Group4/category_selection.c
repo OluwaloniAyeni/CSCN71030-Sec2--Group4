@@ -37,5 +37,4 @@ void processCategory(char* category)
 		return;
 	}
 
-	printf("Category selected: %s\n", category);
 }
