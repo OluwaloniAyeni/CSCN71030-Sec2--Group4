@@ -5,6 +5,10 @@
 
 int main() 
 {
+	printf("=========================================\n");
+	printf(" Welcome to Budget-Based Recommendation System\n");
+	printf("=========================================\n\n");
+
 	const char* filename = "data.txt";
 
 	if (!startProgram(filename))

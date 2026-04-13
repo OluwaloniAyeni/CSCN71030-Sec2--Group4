@@ -50,6 +50,9 @@
     <ClInclude Include="sorting_and_ranking.h" />
     <ClInclude Include="user_input.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
