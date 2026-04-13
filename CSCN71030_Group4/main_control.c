@@ -17,15 +17,40 @@
 int startProgram(const char* filename)
 {
 	FacilityList list;
+	int option = 1;
 
-	if(loadFacilitiesData(filename, &list) != 1)
+	if (loadFacilitiesData(filename, &list) != 1)
 	{
 		handleError("Data Storage Module", "Failed to load data");
 		return 0;
 	}
 
-	manageFlow(list.items, (int)list.count);
+	while (option == 1)
+	
+	{
+		manageFlow(list.items, (int)list.count);
 
+		printf("\nDo you want to perform another search?\n");
+		printf("1. Yes\n");
+		printf("0. Exit\n");
+		printf("Enter choice: ");
+
+		if (scanf_s("%d", &option) != 1)
+		{
+			printf("Invalid input. Please enter 1 or 0.\n");
+			while (getchar() != '\n');
+			option = 0;
+		}
+		else if (option == 0)
+		{
+			printf("Thank you for using the Budget-Based Recommendation System. Goodbye!\n");
+		}
+		else if (option != 1)
+		{
+			printf("Inavalid choice. Please enter 0 or 1.\n");
+			option = 1;
+		}
+	}
 	free(list.items);
 	return 1;
 }
