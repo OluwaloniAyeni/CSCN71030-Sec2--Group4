@@ -5,4 +5,4 @@
 
 
 
-void processBudget(UserRequest req);
+Facility* processBudget(Facility* allItems, int count, UserRequest req, int* filteredCount);
