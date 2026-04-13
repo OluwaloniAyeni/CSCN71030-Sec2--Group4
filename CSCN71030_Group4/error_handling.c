@@ -23,3 +23,11 @@ void handleError(const char* moduleName, const char* message)
 
 	printf("Error in %s: %s\n", moduleName, message);
 }
+
+void handlemessage(const char* message)
+{
+	if(message != NULL)
+	{
+		printf("%s\n", message);
+	}
+}

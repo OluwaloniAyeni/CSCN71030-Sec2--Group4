@@ -49,7 +49,7 @@ void manageFlow(Facility* allItems, int count)
 
 	if (filteredItems == NULL || filteredCount == 0)
 	{
-		handleError("Search and Filtering Module", "No matching results found");
+		handlemessage("\nNo matching results found for your selection.\n");
 		return;
 	}
 
