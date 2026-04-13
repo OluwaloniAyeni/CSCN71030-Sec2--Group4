@@ -10,7 +10,7 @@ UserRequest getUserInput() {
 	req.budget = 0.0;
 
     while (1) {
-        printf("Select Category:\n");
+        printf("\nSelect Category:\n");
         printf("1. Gym\n");
         printf("2. Hotel\n");
         printf("3. Restaurant\n");
@@ -52,9 +52,23 @@ UserRequest getUserInput() {
     default:
         strcpy_s(req.category, sizeof(req.category), "restaurant");
     }
-
+    while(1) 
+    {
     printf("Enter your maximum budget: ");
-    scanf_s("%lf", &req.budget);
+    if (scanf_s("%lf", &req.budget) != 1)
+    {
+        printf("Invalid input. Please enter a number.\n");
+        while (getchar() != '\n');
+        continue;
+	}
+
+    if (req.budget < 0)
+    {
+        printf("Invalid budget. Please enter a non-negative number.\n");
+        continue;
+    }
+    break;
+	}
 
     return req;
 }
