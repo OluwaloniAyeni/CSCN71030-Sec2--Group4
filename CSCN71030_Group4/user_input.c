@@ -7,7 +7,7 @@
  * @brief Handles user input for category and budget.
  * @details This file contains functions used to collect and validate
  * the user's category choice and maximum budget input.
- * @author Oluwaloni Ayeni
+ * @author Afsana Zaman
  * @date 2026-04-13
  */
 
@@ -16,7 +16,7 @@
   * @brief Gets category and budget input from the user.
   * @details This function asks the user to select a category using a number
   * and enter a maximum budget. It validates the input before returning it.
-  * @author Oluwaloni Ayeni
+  * @author Oluwaloni Ayeni and Afsana Zaman
   * @return UserRequest Returns a structure containing the selected category and budget.
   * @date 2026-04-13
   */
