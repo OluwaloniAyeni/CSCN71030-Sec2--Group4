@@ -147,6 +147,7 @@ int filterFeatures(
         int passParking = (parkingRequirement == -1) || (f->hasParking == parkingRequirement);
         int passRating = (minRating < 0.0) || (f->rating >= minRating);
 
+		// if the facility meets all selected criteria, add it to the results list
         if (passWifi && passParking && passRating) {
             Facility* newResults = (Facility*)realloc(results, (count + 1) * sizeof(Facility));
             if (newResults == NULL) {
