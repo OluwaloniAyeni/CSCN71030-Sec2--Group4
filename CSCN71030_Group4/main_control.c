@@ -30,25 +30,32 @@ int startProgram(const char* filename)
 	{
 		manageFlow(list.items, (int)list.count);
 
-		printf("\nDo you want to perform another search?\n");
-		printf("1. Yes\n");
-		printf("0. Exit\n");
-		printf("Enter choice: ");
+		while (1)
+		{
+			printf("\nDo you want to perform another search?\n");
+			printf("1. Yes\n");
+			printf("0. Exit\n");
+			printf("Enter choice: ");
 
-		if (scanf_s("%d", &option) != 1)
-		{
-			printf("Invalid input. Please enter 1 or 0.\n");
-			while (getchar() != '\n');
-			option = 0;
-		}
-		else if (option == 0)
-		{
-			printf("Thank you for using the Budget-Based Recommendation System. Goodbye!\n");
-		}
-		else if (option != 1)
-		{
-			printf("Inavalid choice. Please enter 0 or 1.\n");
-			option = 1;
+			if (scanf_s("%d", &option) != 1)
+			{
+				printf("Invalid input. Please enter 1 or 0.\n");
+				while (getchar() != '\n');
+				continue;
+			}
+			if (option == 1)
+			{
+				break;
+			}
+			else if (option == 0)
+			{
+				printf("Thank you for using the Budget-Based Recommendation System. Goodbye!\n");
+				return 1;
+			}
+			else
+			{
+				printf("Invalid choice. Please enter 0 or 1.\n");
+			}
 		}
 	}
 	free(list.items);
