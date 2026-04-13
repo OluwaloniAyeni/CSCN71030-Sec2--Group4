@@ -148,7 +148,7 @@ void manageFlow(Facility* allItems, int count)
 
 		if(featureFilteredItems == NULL || featureFilteredCount == 0)
 		{
-			handleMessage("\nNo facilities matched your optional feature selections\n");
+			handleMessage("\nNo facilities matched your optional feature selections. Try relaxing the filters.\n");
 			freeResults(filteredItems);
 			return;
 		}
