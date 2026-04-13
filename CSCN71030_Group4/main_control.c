@@ -68,40 +68,46 @@ void manageFlow(Facility* allItems, int count)
 
 	UserRequest request = getUserInput();
 
-	if(!validateInput(request))
+	if (!validateInput(request))
 	{
 		return;
 	}
 
 	Facility* filteredItems = filterByBudget(
-		allItems, count, request.category, 0.0f, 
+		allItems, count, request.category, 0.0f,
 		(float)request.budget, &filteredCount
 	);
 
 	if (filteredItems == NULL || filteredCount == 0)
 	{
 		handlemessage("\nNo matching results found for your selection.\n");
-		return;
 	}
 
-	int recommendationCount = 0;
-
-	Facility* recommendations = generateRecommendations(filteredItems, filteredCount,
-		&recommendationCount);
-
-	if (recommendations == NULL || recommendationCount == 0)
+	else
 	{
-		handleError("Recommendation Module", "Could not generate recommendations");
+		int recommendationCount = 0;
+
+		Facility* recommendations = generateRecommendations(filteredItems, filteredCount,
+			&recommendationCount);
+
+		if (recommendations == NULL || recommendationCount == 0)
+		{
+			handleError("Recommendation Module", "Could not generate recommendations");
+		}
+
+		else
+		{
+
+			sortByPrice(recommendations, recommendationCount);
+			rankByRating(recommendations, recommendationCount);
+
+			displayResults(&request, recommendations, recommendationCount);
+
+			freeResults(recommendations);
+		}
 		freeResults(filteredItems);
-		return;
 	}
 
-	sortByPrice(recommendations, recommendationCount);
-	rankByRating(recommendations, recommendationCount);
-
-	displayResults(&request, recommendations, recommendationCount);
-
-	freeResults(filteredItems);
-	freeResults(recommendations);
 }
+
 
