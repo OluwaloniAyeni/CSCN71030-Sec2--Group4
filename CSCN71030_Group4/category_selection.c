@@ -25,6 +25,11 @@
   */
 void toLowerCase(char* str)
 {
+	// check if string is NULL before processing
+	if(str == NULL)
+	{
+		return;
+	}
 	// convert each character to lowercase using tolower function
 	for (int i = 0; str[i]; i++)
 	{
