@@ -6,6 +6,7 @@
 #include "user_input.h"
 #include "data_storage.h"
 #include "input_validation.h"
+#include "feature_display.h"
 #include "search_filtering.h"
 #include "recommendation.h"
 #include "sorting_and_ranking.h"
@@ -126,15 +127,36 @@ void manageFlow(Facility* allItems, int count)
 	// display message if no matching result
 	if (filteredItems == NULL || filteredCount == 0)
 	{
-		handlemessage("\nNo matching results found for your selection.\n");
+		handleMessage("\nNo matching results found for your selection.\n");
 	}
 
 	else
 	{
+		Facility* featureFilteredItems = NULL;
+		size_t featureFilteredCount = 0;
+
+		//clear leftover newline before using fgets in filterFeatures
+		while (getchar() != '\n');
+
+		if(!filterFeatures(filteredItems, filteredCount, 
+			&featureFilteredItems, &featureFilteredCount))
+		{
+			handleError("Feature Display Module", "Could not filter by optional features");
+			freeResults(filteredItems);
+			return;
+		}
+
+		if(featureFilteredItems == NULL || featureFilteredCount == 0)
+		{
+			handleMessage("\nNo facilities matched your optional feature selections\n");
+			freeResults(filteredItems);
+			return;
+		}
+
 		int recommendationCount = 0;
 
 		// generate recommendations from filtered items
-		Facility* recommendations = generateRecommendations(filteredItems, filteredCount,
+		Facility* recommendations = generateRecommendations(featureFilteredItems, (int)featureFilteredCount,
 			&recommendationCount);
 
 		// check if recommendation generation failed
