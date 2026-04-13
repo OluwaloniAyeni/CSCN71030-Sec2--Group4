@@ -126,7 +126,7 @@ void manageFlow(Facility* allItems, int count)
 	// display message if no matching result
 	if (filteredItems == NULL || filteredCount == 0)
 	{
-		handlemessage("\nNo matching results found for your selection.\n");
+		handleMessage("\nNo matching results found for your selection.\n");
 	}
 
 	else

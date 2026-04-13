@@ -27,11 +27,13 @@
   */
 Facility* processBudget(Facility* allItems, int count, UserRequest req, int* filteredCount)
 {
-    
+	// check for invalid input parameters and return null if any are invalid
+    if (allItems == NULL || filteredCount == NULL) {
+        return NULL;
+	}
     static Facility filtered[100];
     int found = 0;
 
-    printf("\nFiltered Results:\n");
 
 	// loop through all facilities.
     for (int i = 0; i < count; i++) {
