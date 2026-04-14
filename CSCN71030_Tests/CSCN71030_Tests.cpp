@@ -11,6 +11,10 @@ extern "C" {
 #include "../CSCN71030_Group4/search_filtering.h"
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
+
+#include "../CSCN71030_Group4/user_input.h"
+#include "../CSCN71030_Group4/input_validation.h"
+#include "../CSCN71030_Group4/budget_handling.h"
 }
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -120,260 +124,106 @@ namespace RecommendationTests
 	};
 }
 
-
-namespace FeatureDisplayTests
+namespace InputValidationTests
 {
-	TEST_CLASS(FeatureDisplayTests)
+	TEST_CLASS(InputValidationTests)
 	{
 	public:
-		TEST_METHOD(simpleFeatureTest)
+
+		TEST_METHOD(ValidInput_ReturnsTrue)
 		{
-			int filterTest( const Facility * input, int wifiRequirement,int parkingRequirement,double minRating) {
+			UserRequest req = { "gym", 20.0 };
 
-				int passWifi = (wifiRequirement == -1) || (f->hasWifi == wifiRequirement);
-				int passParking = (parkingRequirement == -1) || (f->hasParking == parkingRequirement);
-				int passRating = (minRating < 0.0) || (f->rating >= minRating);
+			int result = validateInput(req);
 
-				return passWifi && passParking && passRating;
+			Assert::AreEqual(1, result);
+		}
+
+		TEST_METHOD(NegativeBudget_ReturnsFalse)
+		{
+			UserRequest req = { "gym", -5.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(0, result);
+		}
+
+		TEST_METHOD(ZeroBudget_ReturnsTrue)
+		{
+			UserRequest req = { "hotel", 0.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(1, result);
+		}
+
+		TEST_METHOD(EmptyCategory_ReturnsFalse)
+		{
+			UserRequest req = { "", 20.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(0, result);
+		}
+	};
+}
+
+namespace BudgetHandlingTests
+{
+	TEST_CLASS(BudgetHandlingTests)
+	{
+	public:
+
+
+		TEST_METHOD(ProcessBudget_ReturnsMatchingItems)
+		{
+			Facility items[3] = {
+				{1, "Gym A", "gym", 15.0f, 4.5f, 1, 1},
+				{2, "Gym B", "gym", 25.0f, 4.0f, 1, 0},
+				{3, "Hotel A", "hotel", 50.0f, 4.2f, 1, 1}
 			};
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 20.0;
 
-			Facility f = { "Test", 1, 0, 4.5 };
+			int filteredCount = 0;
+			Facility* result = processBudget(items, 3, req, &filteredCount);
 
-			int result = filterTest(&f, 1, -1, 4.0);
+			Assert::IsNotNull(result);
+			Assert::AreEqual(1, filteredCount);
 
-			if (result == 1) {
-				printf("Test passed!\n");
-			}
-			else {
-				printf("Test failed!\n");
-			}
-
-			
-		
 		}
 
-		
-
-		// check sorting by rating (highest first)
-
-	};
-}
-
-namespace OutputDisplayTests
-{
-	TEST_CLASS(OutputDisplayTests)
-	{
-	public:
-		TEST_METHOD(simpleOutputDisplayTest)
+		TEST_METHOD(ProcessBudget_ReturnsNullWhenNoneMatch)
 		{
+			Facility items[3] = {
+				{1, "Gym A", "gym", 50.0f, 4.5f, 1, 1},
+				{2, "Gym B", "gym", 60.0f, 4.0f, 1, 0},
+				{3, "Gym C", "gym", 70.0f, 4.2f, 1, 1}
+			};
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 10.0;
 
-			// Mock structs (adjust if yours differ)
-			typedef struct {
-				char category[50];
-				char budget[50];
-			} UserRequest;
+			int filteredCount = 0;
+			Facility* result = processBudget(items, 3, req, &filteredCount);
 
-			typedef struct {
-				char name[50];
-				double price;
-				double rating;
-				int hasWifi;
-				int hasParking;
-			} Facility;
-
-			// Function prototype
-			void displayResults(const UserRequest * request, const Facility * items, size_t count);
-
-			int main() {
-				UserRequest req = { "Cafe", "Cheap" };
-
-				Facility items[2] = {
-					{"Cafe A", 10.0, 4.5, 1, 1},
-					{"Cafe B", 15.0, 3.8, 0, 1}
-				};
-
-				displayResults(&req, items, 2);
-
-				printf("\n✅ Check manually if output looks correct.\n");
-
-				return 0;
-			}
-
-
+			Assert::IsNull(result);
+			Assert::AreEqual(0, filteredCount);
 
 		}
 
+		TEST_METHOD(ProcessBudget_NullInput_ReturnsNull)
+		{
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 20.0;
 
+			int filteredCount = 0;
+			Facility* result = processBudget(NULL, 0, req, &filteredCount);
 
-		// check sorting by rating (highest first)
+			Assert::IsNull(result);
 
+		}
 	};
-}
-
-
-/* -----------------------------
-   addFacilityRecord Tests
---------------------------------*/
-
-void test_addFacilityRecord() {
-	FacilityList list = { NULL, 0 };
-
-	Facility f = { 1, "Hotel A", "hotel", 120.0f, 4.2f, 1, 1 };
-
-	int result = addFacilityRecord(&list, &f);
-
-	assert(result == 1);
-	assert(list.count == 1);
-	assert(strcmp(list.items[0].name, "Hotel A") == 0);
-
-	free(list.items);
-}
-
-void test_addFacilityRecord_invalid() {
-	Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
-
-	assert(addFacilityRecord(NULL, &f) == 0);
-	assert(addFacilityRecord(&(FacilityList) { 0 }, NULL) == 0);
-}
-
-/* -----------------------------
-   addBudgetRecord Tests
---------------------------------*/
-
-void test_addBudgetRecord() {
-	BudgetHistory history = { NULL, 0 };
-
-	int result = addBudgetRecord(&history, "hotel", 200.0);
-
-	assert(result == 1);
-	assert(history.count == 1);
-	assert(strcmp(history.items[0].category, "hotel") == 0);
-
-	free(history.items);
-}
-
-void test_addBudgetRecord_invalid() {
-	BudgetHistory history = { NULL, 0 };
-
-	assert(addBudgetRecord(NULL, "hotel", 100.0) == 0);
-	assert(addBudgetRecord(&history, NULL, 100.0) == 0);
-}
-
-/* -----------------------------
-   filterResults Tests
---------------------------------*/
-
-void test_filterResults() {
-	FacilityList list = { NULL, 0 };
-
-	Facility f1 = { 1, "A", "hotel", 100.0f, 4.0f, 1, 1 };
-	Facility f2 = { 2, "B", "hotel", 300.0f, 4.0f, 1, 1 };
-
-	addFacilityRecord(&list, &f1);
-	addFacilityRecord(&list, &f2);
-
-	Facility* results = NULL;
-	size_t count = 0;
-
-	int res = filterResults(&list, "hotel", 150.0, &results, &count);
-
-	assert(res == 1);
-	assert(count == 1);
-	assert(strcmp(results[0].name, "A") == 0);
-
-	free(results);
-	free(list.items);
-}
-
-void test_filterResults_noMatch() {
-	FacilityList list = { NULL, 0 };
-
-	Facility f = { 1, "A", "hotel", 500.0f, 4.0f, 1, 1 };
-	addFacilityRecord(&list, &f);
-
-	Facility* results = NULL;
-	size_t count = 0;
-
-	int res = filterResults(&list, "gym", 100.0, &results, &count);
-
-	assert(res == 1);
-	assert(count == 0);
-
-	free(list.items);
-}
-
-/* -----------------------------
-   get functions Tests
---------------------------------*/
-
-void test_getFacilitiesData() {
-	FacilityList list = { NULL, 0 };
-
-	Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
-	addFacilityRecord(&list, &f);
-
-	size_t count = 0;
-	const Facility* data = getFacilitiesData(&list, &count);
-
-	assert(data != NULL);
-	assert(count == 1);
-
-	free(list.items);
-}
-
-void test_getBudgetData() {
-	BudgetHistory history = { NULL, 0 };
-
-	addBudgetRecord(&history, "hotel", 100.0);
-
-	size_t count = 0;
-	const BudgetRecord* data = getBudgetData(&history, &count);
-
-	assert(data != NULL);
-	assert(count == 1);
-
-	free(history.items);
-}
-
-/* -----------------------------
-   freeDataMemory Test
---------------------------------*/
-
-void test_freeDataMemory() {
-	FacilityList list = { NULL, 0 };
-	BudgetHistory history = { NULL, 0 };
-
-	Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
-	addFacilityRecord(&list, &f);
-	addBudgetRecord(&history, "hotel", 100.0);
-
-	freeDataMemory(&list, &history);
-
-	assert(list.items == NULL);
-	assert(list.count == 0);
-	assert(history.items == NULL);
-	assert(history.count == 0);
-}
-
-/* -----------------------------
-   MAIN
---------------------------------*/
-
-int main() {
-	test_addFacilityRecord();
-	test_addFacilityRecord_invalid();
-
-	test_addBudgetRecord();
-	test_addBudgetRecord_invalid();
-
-	test_filterResults();
-	test_filterResults_noMatch();
-
-	test_getFacilitiesData();
-	test_getBudgetData();
-
-	test_freeDataMemory();
-
-	printf("All DataStorage tests passed!\n");
-	return 0;
 }
