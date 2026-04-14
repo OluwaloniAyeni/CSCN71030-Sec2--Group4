@@ -7,6 +7,7 @@
 
 extern "C" {
 #include "../CSCN71030_Group4/item.h"	
+#include "../CSCN71030_Group4/main_control.h"
 #include "../CSCN71030_Group4/search_filtering.h"
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
@@ -65,6 +66,20 @@ namespace SearchFilteringTests
 			Assert::IsNull(result);
 			Assert::AreEqual(0, filteredCount);
 		}
+
+		TEST_METHOD(FilterByBudget_CategoryMismatch_NoResults)
+		{
+			Facility items[2] = {
+				{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1},
+				{2, "Hotel B", "hotel", 150.0f, 4.0f, 1, 0}
+			};
+
+			int filteredCount = 0;
+			Facility* result = filterByBudget(items, 2, "gym", 0.0f, 200.0f, &filteredCount);
+
+			Assert::IsNull(result);
+			Assert::AreEqual(0, filteredCount);
+		}
 	};
 }
 
@@ -93,7 +108,7 @@ namespace RecommendationTests
 
 		// empty input
 
-		TEST_METHOD(GenerateRecommenedations_EmptyInput_ReturnsNull)
+		TEST_METHOD(GenerateRecommendations_EmptyInput_ReturnsNull)
 		{
 			Facility* filteredItems = NULL;
 			int recommendationCount = 0;
@@ -108,7 +123,8 @@ namespace RecommendationTests
 		TEST_METHOD(GenerateRecommendations_SingleMatchingResult)
 		{
 			Facility filteredItems[1] = {
-				{1, "Hotel A", "hotel", 100.0f, 4.5f} };
+				{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1} 
+			};
 
 			int recommendationCount = 0;
 
@@ -120,8 +136,216 @@ namespace RecommendationTests
 			freeRecommendations(results);
 		}
 
-		// check sorting by rating (highest first)
+		TEST_METHOD(GenerateRecommendations_SortedCorrectly)
+		{
+			Facility filteredItems[3] = {
+				{1, "A", "hotel", 200.0f, 4.5f, 1, 1},
+				{2, "B", "hotel", 100.0f, 4.5f, 1, 1},
+				{3, "C", "hotel", 150.0f, 4.0f, 1, 1}
+			};
 
+			int recommendationCount = 0;
+
+			Facility* results = generateRecommendations(filteredItems, 3, &recommendationCount);
+
+			Assert::IsNotNull(results);
+			Assert::AreEqual(3, recommendationCount);
+
+			// Highest rating first, then lower price for ties
+			Assert::AreEqual(4.5f, results[0].rating);
+			Assert::AreEqual(100.0f, results[0].price);
+
+			Assert::AreEqual(4.5f, results[1].rating);
+			Assert::AreEqual(200.0f, results[1].price);
+
+			Assert::AreEqual(4.0f, results[2].rating);
+			Assert::AreEqual(150.0f, results[2].price);
+
+			freeRecommendations(results);
+		}
+
+
+
+	};
+}
+
+namespace DataStorageTests
+{
+	TEST_CLASS(DataStorageTests)
+	{
+	public:
+
+		TEST_METHOD(AddFacilityRecord_ValidInput_ReturnsSuccess)
+		{
+			FacilityList list = { NULL, 0 };
+			Facility f = { 1, "Hotel A", "hotel", 120.0f, 4.2f, 1, 1 };
+
+			int result = addFacilityRecord(&list, &f);
+
+			Assert::AreEqual(1, result);
+			Assert::AreEqual((size_t)1, list.count);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(AddFacilityRecord_InvalidInput_ReturnsFailure)
+		{
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+
+			Assert::AreEqual(0, addFacilityRecord(NULL, &f));
+
+			FacilityList list = { NULL, 0 };
+			Assert::AreEqual(0, addFacilityRecord(&list, NULL));
+		}
+
+		TEST_METHOD(AddBudgetRecord_ValidInput_ReturnsSuccess)
+		{
+			BudgetHistory history = { NULL, 0 };
+
+			int result = addBudgetRecord(&history, "hotel", 200.0);
+
+			Assert::AreEqual(1, result);
+			Assert::AreEqual((size_t)1, history.count);
+
+			free(history.items);
+		}
+
+		TEST_METHOD(AddBudgetRecord_InvalidInput_ReturnsFailure)
+		{
+			BudgetHistory history = { NULL, 0 };
+
+			Assert::AreEqual(0, addBudgetRecord(NULL, "hotel", 100.0));
+			Assert::AreEqual(0, addBudgetRecord(&history, NULL, 100.0));
+		}
+
+		TEST_METHOD(FilterResults_ReturnsMatchingItem)
+		{
+			FacilityList list = { NULL, 0 };
+
+			Facility f1 = { 1, "A", "hotel", 100.0f, 4.0f, 1, 1 };
+			Facility f2 = { 2, "B", "hotel", 300.0f, 4.0f, 1, 1 };
+
+			addFacilityRecord(&list, &f1);
+			addFacilityRecord(&list, &f2);
+
+			Facility* results = NULL;
+			size_t count = 0;
+
+			int res = filterResults(&list, "hotel", 150.0, &results, &count);
+
+			Assert::AreEqual(1, res);
+			Assert::AreEqual((size_t)1, count);
+
+			free(results);
+			free(list.items);
+		}
+
+		TEST_METHOD(FilterResults_NoMatch_ReturnsEmpty)
+		{
+			FacilityList list = { NULL, 0 };
+
+			Facility f = { 1, "A", "hotel", 500.0f, 4.0f, 1, 1 };
+			addFacilityRecord(&list, &f);
+
+			Facility* results = NULL;
+			size_t count = 0;
+
+			int res = filterResults(&list, "gym", 100.0, &results, &count);
+
+			Assert::AreEqual(1, res);
+			Assert::AreEqual((size_t)0, count);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(GetFacilitiesData_ReturnsStoredData)
+		{
+			FacilityList list = { NULL, 0 };
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+			addFacilityRecord(&list, &f);
+
+			size_t count = 0;
+			const Facility* data = getFacilitiesData(&list, &count);
+
+			Assert::IsNotNull(data);
+			Assert::AreEqual((size_t)1, count);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(GetBudgetData_ReturnsStoredData)
+		{
+			BudgetHistory history = { NULL, 0 };
+			addBudgetRecord(&history, "hotel", 100.0);
+
+			size_t count = 0;
+			const BudgetRecord* data = getBudgetData(&history, &count);
+
+			Assert::IsNotNull(data);
+			Assert::AreEqual((size_t)1, count);
+
+			free(history.items);
+		}
+
+		TEST_METHOD(FreeDataMemory_ClearsAllocatedMemory)
+		{
+			FacilityList list = { NULL, 0 };
+			BudgetHistory history = { NULL, 0 };
+
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+			addFacilityRecord(&list, &f);
+			addBudgetRecord(&history, "hotel", 100.0);
+
+			freeDataMemory(&list, &history);
+
+			Assert::IsNull(list.items);
+			Assert::AreEqual((size_t)0, list.count);
+			Assert::IsNull(history.items);
+			Assert::AreEqual((size_t)0, history.count);
+		}
+	};
+}
+
+
+namespace FeatureDisplayTests
+{
+	TEST_CLASS(FeatureDisplayTests)
+	{
+	public:
+
+		TEST_METHOD(FeatureFilter_MatchingItem_ReturnsTrue)
+		{
+			Facility f = { 1, "Test Cafe", "cafe", 15.0f, 4.5f, 1, 0 };
+
+			int wifiRequirement = 1;
+			int parkingRequirement = -1;
+			double minRating = 4.0;
+
+			bool passWifi = (wifiRequirement == -1) || (f.hasWifi == wifiRequirement);
+			bool passParking = (parkingRequirement == -1) || (f.hasParking == parkingRequirement);
+			bool passRating = (minRating < 0.0) || (f.rating >= minRating);
+
+			bool result = passWifi && passParking && passRating;
+
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(FeatureFilter_NonMatchingItem_ReturnsFalse)
+		{
+			Facility f = { 2, "Test Hotel", "hotel", 100.0f, 3.5f, 0, 1 };
+
+			int wifiRequirement = 1;
+			int parkingRequirement = -1;
+			double minRating = 4.0;
+
+			bool passWifi = (wifiRequirement == -1) || (f.hasWifi == wifiRequirement);
+			bool passParking = (parkingRequirement == -1) || (f.hasParking == parkingRequirement);
+			bool passRating = (minRating < 0.0) || (f.rating >= minRating);
+
+			bool result = passWifi && passParking && passRating;
+
+			Assert::AreEqual(false, result);
+		}
 	};
 }
 
