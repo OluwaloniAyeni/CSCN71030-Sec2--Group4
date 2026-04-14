@@ -1,5 +1,4 @@
 ﻿#include <assert.h>
-#include "data_storage.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,6 +10,8 @@ extern "C" {
 #include "../CSCN71030_Group4/search_filtering.h"
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
+#include "../CSCN71030_Group4/feature_display.h"
+#include "../CSCN71030_Group4/output_display.h"
 
 #include "../CSCN71030_Group4/user_input.h"
 #include "../CSCN71030_Group4/input_validation.h"
@@ -227,3 +228,185 @@ namespace BudgetHandlingTests
 		}
 	};
 }
+
+
+namespace FeaturedisplayTests
+{
+	TEST_CLASS(FeaturedisplayTests)
+	{
+	public:
+
+		typedef struct {
+			char name[50];
+			int hasWifi;
+			int hasParking;
+			double rating;
+		} Facility;
+
+		// Function to test
+		int passesFilter(
+			const Facility* f,
+			int wifiRequirement,
+			int parkingRequirement,
+			double minRating
+		) {
+			int passWifi = (wifiRequirement == -1) || (f->hasWifi == wifiRequirement);
+			int passParking = (parkingRequirement == -1) || (f->hasParking == parkingRequirement);
+			int passRating = (minRating < 0.0) || (f->rating >= minRating);
+
+			return passWifi && passParking && passRating;
+		}
+
+		TEST_METHOD(FeaturedisplayTests_passesFilter)
+		{
+			
+				Facility f = { "Test", 1, 0, 4.5 };
+
+				Assert::AreEqual(1, passesFilter(&f, 1, -1, 4.0));
+				Assert::AreEqual(0, passesFilter(&f, -1, 1, 4.0));
+				Assert::AreEqual(0, passesFilter(&f, -1, -1, 5.0));
+				Assert::AreEqual(1, passesFilter(&f, -1, -1, -1.0));
+
+				printf("All tests passed!\n");
+			
+		}
+
+		
+	};
+}
+
+
+TEST_CLASS(OutputDisplayTests)
+{
+public:
+
+	TEST_METHOD(DisplayResults_ValidInput_DoesNotCrash)
+	{
+		Facility items[2] = {
+			{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1},
+			{2, "Hotel B", "hotel", 150.0f, 4.0f, 0, 1}
+		};
+
+		UserRequest req;
+		strcpy_s(req.category, 50, "hotel");
+		req.budget = 200.0;
+
+		displayResults(&req, items, 2);
+
+		Assert::IsTrue(true); // If no crash → pass
+	}
+
+	TEST_METHOD(DisplayResults_NullRequest_DoesNotCrash)
+	{
+		Facility items[1] = {
+			{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1}
+		};
+
+		displayResults(NULL, items, 1);
+
+		Assert::IsTrue(true);
+	}
+
+	TEST_METHOD(DisplayResults_EmptyList_DoesNotCrash)
+	{
+		UserRequest req;
+		strcpy_s(req.category, 50, "hotel");
+		req.budget = 100.0;
+
+		displayResults(&req, NULL, 0);
+
+		Assert::IsTrue(true);
+	}
+};
+
+namespace DataStorageTests
+{
+	TEST_CLASS(DataStorageTests)
+	{
+	public:
+
+		TEST_METHOD(AddFacilityRecord_Valid)
+		{
+			FacilityList list = { 0 };
+			Facility f = { 1, "Test Hotel", "hotel", 100.0f, 4.5f, 1, 1 };
+
+			int result = addFacilityRecord(&list, &f);
+
+			Assert::AreEqual(1, result);
+			Assert::AreEqual((size_t)1, list.count);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(AddFacilityRecord_NullInput)
+		{
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+
+			int result = addFacilityRecord(NULL, &f);
+
+			Assert::AreEqual(0, result);
+		}
+
+
+		TEST_METHOD(FilterResults_ReturnsMatches)
+		{
+			FacilityList list = { 0 };
+
+			Facility f1 = { 1, "A", "hotel", 100.0f, 4.5f, 1, 1 };
+			Facility f2 = { 2, "B", "hotel", 300.0f, 4.0f, 1, 0 };
+
+			addFacilityRecord(&list, &f1);
+			addFacilityRecord(&list, &f2);
+
+			Facility* results = NULL;
+			size_t count = 0;
+
+			int success = filterResults(&list, "hotel", 150.0, &results, &count);
+
+			Assert::AreEqual(1, success);
+			Assert::AreEqual((size_t)1, count);
+
+			free(results);
+			free(list.items);
+		}
+
+		TEST_METHOD(FilterResults_NoMatch)
+		{
+			FacilityList list = { 0 };
+
+			Facility f = { 1, "A", "hotel", 300.0f, 4.5f, 1, 1 };
+			addFacilityRecord(&list, &f);
+
+			Facility* results = NULL;
+			size_t count = 0;
+
+			int success = filterResults(&list, "hotel", 100.0, &results, &count);
+
+			Assert::AreEqual(1, success);
+			Assert::AreEqual((size_t)0, count);
+			Assert::IsNull(results);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(FreeDataMemory_ClearsData)
+		{
+			FacilityList list = { 0 };
+			BudgetHistory history = { 0 };
+
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+
+			addFacilityRecord(&list, &f);
+			addBudgetRecord(&history, "hotel", 100.0);
+
+			freeDataMemory(&list, &history);
+
+			Assert::IsNull(list.items);
+			Assert::AreEqual((size_t)0, list.count);
+
+			Assert::IsNull(history.items);
+			Assert::AreEqual((size_t)0, history.count);
+		}
+	}
+
+};
