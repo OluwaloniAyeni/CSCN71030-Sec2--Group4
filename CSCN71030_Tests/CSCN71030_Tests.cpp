@@ -1,3 +1,6 @@
+﻿#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "pch.h"
 #include "CppUnitTest.h"
 
@@ -109,6 +112,96 @@ namespace RecommendationTests
 
 			freeRecommendations(results);
 		}
+
+		// check sorting by rating (highest first)
+
+	};
+}
+
+
+namespace FeatureDisplayTests
+{
+	TEST_CLASS(FeatureDisplayTests)
+	{
+	public:
+		TEST_METHOD(simpleFeatureTest)
+		{
+			int filterTest( const Facility * input, int wifiRequirement,int parkingRequirement,double minRating) {
+
+				int passWifi = (wifiRequirement == -1) || (f->hasWifi == wifiRequirement);
+				int passParking = (parkingRequirement == -1) || (f->hasParking == parkingRequirement);
+				int passRating = (minRating < 0.0) || (f->rating >= minRating);
+
+				return passWifi && passParking && passRating;
+			};
+
+			Facility f = { "Test", 1, 0, 4.5 };
+
+			int result = filterTest(&f, 1, -1, 4.0);
+
+			if (result == 1) {
+				printf("Test passed!\n");
+			}
+			else {
+				printf("Test failed!\n");
+			}
+
+			
+		
+		}
+
+		
+
+		// check sorting by rating (highest first)
+
+	};
+}
+
+namespace OutputDisplayTests
+{
+	TEST_CLASS(OutputDisplayTests)
+	{
+	public:
+		TEST_METHOD(simpleOutputDisplayTest)
+		{
+
+			// Mock structs (adjust if yours differ)
+			typedef struct {
+				char category[50];
+				char budget[50];
+			} UserRequest;
+
+			typedef struct {
+				char name[50];
+				double price;
+				double rating;
+				int hasWifi;
+				int hasParking;
+			} Facility;
+
+			// Function prototype
+			void displayResults(const UserRequest * request, const Facility * items, size_t count);
+
+			int main() {
+				UserRequest req = { "Cafe", "Cheap" };
+
+				Facility items[2] = {
+					{"Cafe A", 10.0, 4.5, 1, 1},
+					{"Cafe B", 15.0, 3.8, 0, 1}
+				};
+
+				displayResults(&req, items, 2);
+
+				printf("\n✅ Check manually if output looks correct.\n");
+
+				return 0;
+			}
+
+
+
+		}
+
+
 
 		// check sorting by rating (highest first)
 
