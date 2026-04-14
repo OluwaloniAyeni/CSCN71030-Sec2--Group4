@@ -63,6 +63,20 @@ namespace SearchFilteringTests
 			Assert::IsNull(result);
 			Assert::AreEqual(0, filteredCount);
 		}
+
+		TEST_METHOD(FilterByBudget_CategoryMismatch_NoResults)
+		{
+			Facility items[2] = {
+				{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1},
+				{2, "Hotel B", "hotel", 150.0f, 4.0f, 1, 0}
+			};
+
+			int filteredCount = 0;
+			Facility* result = filterByBudget(items, 2, "gym", 0.0f, 200.0f, &filteredCount);
+
+			Assert::IsNull(result);
+			Assert::AreEqual(0, filteredCount);
+		}
 	};
 }
 
