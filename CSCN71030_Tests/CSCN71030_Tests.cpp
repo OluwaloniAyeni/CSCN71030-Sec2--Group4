@@ -9,6 +9,10 @@ extern "C" {
 #include "../CSCN71030_Group4/search_filtering.h"
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
+
+#include "../CSCN71030_Group4/user_input.h"
+#include "../CSCN71030_Group4/input_validation.h"
+#include "../CSCN71030_Group4/budget_handling.h"
 }
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -118,92 +122,106 @@ namespace RecommendationTests
 	};
 }
 
-
-namespace FeatureDisplayTests
+namespace InputValidationTests
 {
-	TEST_CLASS(FeatureDisplayTests)
+	TEST_CLASS(InputValidationTests)
 	{
 	public:
-		TEST_METHOD(simpleFeatureTest)
+
+		TEST_METHOD(ValidInput_ReturnsTrue)
 		{
-			int filterTest( const Facility * input, int wifiRequirement,int parkingRequirement,double minRating) {
+			UserRequest req = { "gym", 20.0 };
 
-				int passWifi = (wifiRequirement == -1) || (f->hasWifi == wifiRequirement);
-				int passParking = (parkingRequirement == -1) || (f->hasParking == parkingRequirement);
-				int passRating = (minRating < 0.0) || (f->rating >= minRating);
+			int result = validateInput(req);
 
-				return passWifi && passParking && passRating;
-			};
-
-			Facility f = { "Test", 1, 0, 4.5 };
-
-			int result = filterTest(&f, 1, -1, 4.0);
-
-			if (result == 1) {
-				printf("Test passed!\n");
-			}
-			else {
-				printf("Test failed!\n");
-			}
-
-			
-		
+			Assert::AreEqual(1, result);
 		}
 
-		
+		TEST_METHOD(NegativeBudget_ReturnsFalse)
+		{
+			UserRequest req = { "gym", -5.0 };
 
-		// check sorting by rating (highest first)
+			int result = validateInput(req);
 
+			Assert::AreEqual(0, result);
+		}
+
+		TEST_METHOD(ZeroBudget_ReturnsTrue)
+		{
+			UserRequest req = { "hotel", 0.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(1, result);
+		}
+
+		TEST_METHOD(EmptyCategory_ReturnsFalse)
+		{
+			UserRequest req = { "", 20.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(0, result);
+		}
 	};
 }
 
-namespace OutputDisplayTests
+namespace BudgetHandlingTests
 {
-	TEST_CLASS(OutputDisplayTests)
+	TEST_CLASS(BudgetHandlingTests)
 	{
 	public:
-		TEST_METHOD(simpleOutputDisplayTest)
+
+
+		TEST_METHOD(ProcessBudget_ReturnsMatchingItems)
 		{
+			Facility items[3] = {
+				{1, "Gym A", "gym", 15.0f, 4.5f, 1, 1},
+				{2, "Gym B", "gym", 25.0f, 4.0f, 1, 0},
+				{3, "Hotel A", "hotel", 50.0f, 4.2f, 1, 1}
+			};
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 20.0;
 
-			// Mock structs (adjust if yours differ)
-			typedef struct {
-				char category[50];
-				char budget[50];
-			} UserRequest;
+			int filteredCount = 0;
+			Facility* result = processBudget(items, 3, req, &filteredCount);
 
-			typedef struct {
-				char name[50];
-				double price;
-				double rating;
-				int hasWifi;
-				int hasParking;
-			} Facility;
-
-			// Function prototype
-			void displayResults(const UserRequest * request, const Facility * items, size_t count);
-
-			int main() {
-				UserRequest req = { "Cafe", "Cheap" };
-
-				Facility items[2] = {
-					{"Cafe A", 10.0, 4.5, 1, 1},
-					{"Cafe B", 15.0, 3.8, 0, 1}
-				};
-
-				displayResults(&req, items, 2);
-
-				printf("\n✅ Check manually if output looks correct.\n");
-
-				return 0;
-			}
-
-
+			Assert::IsNotNull(result);
+			Assert::AreEqual(1, filteredCount);
 
 		}
 
+		TEST_METHOD(ProcessBudget_ReturnsNullWhenNoneMatch)
+		{
+			Facility items[3] = {
+				{1, "Gym A", "gym", 50.0f, 4.5f, 1, 1},
+				{2, "Gym B", "gym", 60.0f, 4.0f, 1, 0},
+				{3, "Gym C", "gym", 70.0f, 4.2f, 1, 1}
+			};
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 10.0;
 
+			int filteredCount = 0;
+			Facility* result = processBudget(items, 3, req, &filteredCount);
 
-		// check sorting by rating (highest first)
+			Assert::IsNull(result);
+			Assert::AreEqual(0, filteredCount);
 
+		}
+
+		TEST_METHOD(ProcessBudget_NullInput_ReturnsNull)
+		{
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 20.0;
+
+			int filteredCount = 0;
+			Facility* result = processBudget(NULL, 0, req, &filteredCount);
+
+			Assert::IsNull(result);
+
+		}
 	};
 }
