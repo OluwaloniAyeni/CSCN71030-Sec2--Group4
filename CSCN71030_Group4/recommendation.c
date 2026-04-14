@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "recommendation.h"
-
+#include "sorting_and_ranking.h"
 /**
  * @file recommendation.c
  * @brief Handles recommendation generation.
@@ -51,6 +51,9 @@ Facility* generateRecommendations(Facility* filteredlist, int count, int* recomm
 	{
 		recommendations[i] = filteredlist[i];
 	}
+
+	
+	rankByRating(recommendations, count);
 
 	// set the total number of recommendations
 	*recommendationCount = count;
