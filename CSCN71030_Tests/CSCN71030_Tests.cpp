@@ -1,5 +1,4 @@
 ﻿#include <assert.h>
-#include "data_storage.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,7 +10,7 @@ extern "C" {
 #include "../CSCN71030_Group4/search_filtering.h"
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
-
+#include "../CSCN71030_Group4/feature_display.h"
 #include "../CSCN71030_Group4/user_input.h"
 #include "../CSCN71030_Group4/input_validation.h"
 #include "../CSCN71030_Group4/budget_handling.h"
@@ -121,6 +120,47 @@ namespace RecommendationTests
 
 		// check sorting by rating (highest first)
 
+	};
+}
+namespace FeatureDisplayTests
+{
+	TEST_CLASS(FeatureDisplayTests)
+	{
+	public:
+
+		TEST_METHOD(FeatureFilter_MatchingItem_ReturnsTrue)
+		{
+			Facility f = { 1, "Test Cafe", "cafe", 15.0f, 4.5f, 1, 0 };
+
+			int wifiRequirement = 1;
+			int parkingRequirement = -1;
+			double minRating = 4.0;
+
+			bool passWifi = (wifiRequirement == -1) || (f.hasWifi == wifiRequirement);
+			bool passParking = (parkingRequirement == -1) || (f.hasParking == parkingRequirement);
+			bool passRating = (minRating < 0.0) || (f.rating >= minRating);
+
+			bool result = passWifi && passParking && passRating;
+
+			Assert::IsTrue(result);
+		}
+
+		TEST_METHOD(FeatureFilter_NonMatchingItem_ReturnsFalse)
+		{
+			Facility f = { 2, "Test Hotel", "hotel", 100.0f, 3.5f, 0, 1 };
+
+			int wifiRequirement = 1;
+			int parkingRequirement = -1;
+			double minRating = 4.0;
+
+			bool passWifi = (wifiRequirement == -1) || (f.hasWifi == wifiRequirement);
+			bool passParking = (parkingRequirement == -1) || (f.hasParking == parkingRequirement);
+			bool passRating = (minRating < 0.0) || (f.rating >= minRating);
+
+			bool result = passWifi && passParking && passRating;
+
+			Assert::AreEqual(false, result);
+		}
 	};
 }
 
