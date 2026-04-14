@@ -105,7 +105,7 @@ namespace RecommendationTests
 
 		// empty input
 
-		TEST_METHOD(GenerateRecommenedations_EmptyInput_ReturnsNull)
+		TEST_METHOD(GenerateRecommendations_EmptyInput_ReturnsNull)
 		{
 			Facility* filteredItems = NULL;
 			int recommendationCount = 0;
@@ -120,7 +120,8 @@ namespace RecommendationTests
 		TEST_METHOD(GenerateRecommendations_SingleMatchingResult)
 		{
 			Facility filteredItems[1] = {
-				{1, "Hotel A", "hotel", 100.0f, 4.5f} };
+				{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1} 
+			};
 
 			int recommendationCount = 0;
 
@@ -132,7 +133,26 @@ namespace RecommendationTests
 			freeRecommendations(results);
 		}
 
-		// check sorting by rating (highest first)
+		TEST_METHOD(GenerateRecommendations_SortsByPrice)
+		{
+			Facility filteredItems[3] = {
+				{1, "Hotel A", "hotel", 200.0f, 4.5f, 1, 1},
+				{2, "Hotel B", "hotel", 100.0f, 4.0f, 1, 0},
+				{3, "Hotel C", "hotel", 150.0f, 3.5f, 0, 1}
+			};
+
+			int recommendationCount = 0;
+
+			Facility* results = generateRecommendations(filteredItems, 3, &recommendationCount);
+
+			Assert::IsNotNull(results);
+			Assert::AreEqual(3, recommendationCount);
+			Assert::AreEqual(100.0f, results[0].price);
+			Assert::AreEqual(150.0f, results[1].price);
+			Assert::AreEqual(200.0f, results[2].price);
+
+			freeRecommendations(results);
+		}
 
 	};
 }
