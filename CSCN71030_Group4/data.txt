@@ -1,0 +1,47 @@
+# Hotels
+Maple Stay Hotel|hotel|145.00|4.5|1|1
+Delta Hotel|hotel|333.00|4.0|1|0
+Courtyard Hotel|hotel|95.00|4.5|1|1
+Staybridge Hotel|hotel|250.00|4.0|1|0
+Holiday Inn Express|hotel|89.99|4.0|1|0
+Best Western Plus Cambridge Hotel|hotel|145.00|4.5|1|1
+Waterloo Suites Hotel|hotel|89.99|4.0|1|0
+Hampton Inn & Suites by Hilton|hotel|145.00|4.0|1|1
+The Walper Hotel|hotel|120.00|4.3|1|1
+Comfort Inn Waterloo|hotel|110.00|3.8|1|1
+
+# Restaurants
+Sun Restaurant|restaurant|25.00|4.3|1|1
+The Bauer Kitchen|restaurant|100.00|3.9|1|1
+The Poké Box|restaurant|35.00|4.3|1|1
+The Grand Malabar|restaurant|30.00|5.0|1|1
+Princess Cafe|restaurant|20.00|4.6|1|0
+King Tin Restaurant|restaurant|25.00|3.4|0|0
+Prime Grill|restaurant|60.00|4.7|1|1
+The Jane Bond|restaurant|50.00|3.9|0|0
+Korner Kitchen|restaurant|40.00|4.5|1|1
+Sushi Stars|restaurant|55.00|4.2|1|1
+
+# Gyms
+Pulse Fitness|gym|35.00|4.2|1|1
+Core Strength Gym|gym|22.00|3.9|0|1
+Crunch Fitness|gym|26.00|4.0|1|1
+Orangetheory Fitness|gym|10.00|3.9|0|1
+Lil's Gym|gym|20.00|5.0|1|1
+Pursuit OCR|gym|22.00|4.4|0|0
+Fit4Less|gym|15.00|3.8|1|0
+Anytime Fitness|gym|30.00|4.3|1|1
+GoodLife Fitness|gym|40.00|4.5|1|1
+Planet Fitness|gym|18.00|4.1|1|0
+
+# Cafes
+Princess Cafe|cafe|15.00|4.6|1|0
+Seven Shores Cafe|cafe|15.00|4.5|1|1
+Midnight Run Cafe|cafe|12.00|4.4|1|0
+Cafe 1842|cafe|10.00|4.3|1|1
+Williams Fresh Cafe|cafe|12.00|4.2|1|1
+Smile Tiger Coffee Roasters|cafe|15.00|4.6|1|1
+Monigram Coffee Roasters|cafe|15.00|4.5|1|0
+Balzac's Coffee Roasters|cafe|18.00|4.7|1|1
+Tim Hortons|cafe|8.00|3.8|1|1
+Starbucks Waterloo|cafe|20.00|4.1|1|1

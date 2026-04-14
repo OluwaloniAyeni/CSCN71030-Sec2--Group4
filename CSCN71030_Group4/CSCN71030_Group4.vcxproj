@@ -37,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="budget_handling.h" />
     <ClInclude Include="category_selection.h" />
+    <ClInclude Include="common.h" />
     <ClInclude Include="data_storage.h" />
     <ClInclude Include="error_handling.h" />
     <ClInclude Include="feature_display.h" />
@@ -48,6 +49,9 @@
     <ClInclude Include="search_filtering.h" />
     <ClInclude Include="sorting_and_ranking.h" />
     <ClInclude Include="user_input.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

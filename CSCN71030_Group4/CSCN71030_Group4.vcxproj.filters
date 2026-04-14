@@ -84,6 +84,9 @@
     <ClInclude Include="output_display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -95,5 +98,8 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{fb584b2b-0e44-419d-b9a9-c9c5025b2e67}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt" />
   </ItemGroup>
 </Project>
