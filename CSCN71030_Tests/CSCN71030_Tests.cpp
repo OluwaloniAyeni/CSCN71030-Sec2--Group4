@@ -148,18 +148,25 @@ namespace RecommendationTests
 			Assert::IsNotNull(results);
 			Assert::AreEqual(3, recommendationCount);
 
-			// Same rating → price ascending
-			Assert::AreEqual(100.0f, results[0].price); // B
-			Assert::AreEqual(200.0f, results[1].price); // A
+			// Highest rating first, then lower price for ties
+			Assert::AreEqual(4.5f, results[0].rating);
+			Assert::AreEqual(100.0f, results[0].price);
 
-			// Lower rating last
-			Assert::AreEqual(150.0f, results[2].price); // C
+			Assert::AreEqual(4.5f, results[1].rating);
+			Assert::AreEqual(200.0f, results[1].price);
+
+			Assert::AreEqual(4.0f, results[2].rating);
+			Assert::AreEqual(150.0f, results[2].price);
 
 			freeRecommendations(results);
 		}
 
+
+
 	};
 }
+
+
 namespace FeatureDisplayTests
 {
 	TEST_CLASS(FeatureDisplayTests)
