@@ -41,7 +41,7 @@ There are also other supporting modules for things like sorting, storing data, a
 
 ---
 
-## Contributors
+## Group Members
 - Oluwaloni Ayeni  
 - Afsana Zaman  
 - Weiming Wang  
