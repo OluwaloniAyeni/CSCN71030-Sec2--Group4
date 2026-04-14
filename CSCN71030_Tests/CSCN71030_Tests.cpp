@@ -7,6 +7,7 @@
 
 extern "C" {
 #include "../CSCN71030_Group4/item.h"	
+#include "../CSCN71030_Group4/main_control.h"
 #include "../CSCN71030_Group4/search_filtering.h"
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
@@ -163,6 +164,143 @@ namespace RecommendationTests
 
 
 
+	};
+}
+
+namespace DataStorageTests
+{
+	TEST_CLASS(DataStorageTests)
+	{
+	public:
+
+		TEST_METHOD(AddFacilityRecord_ValidInput_ReturnsSuccess)
+		{
+			FacilityList list = { NULL, 0 };
+			Facility f = { 1, "Hotel A", "hotel", 120.0f, 4.2f, 1, 1 };
+
+			int result = addFacilityRecord(&list, &f);
+
+			Assert::AreEqual(1, result);
+			Assert::AreEqual((size_t)1, list.count);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(AddFacilityRecord_InvalidInput_ReturnsFailure)
+		{
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+
+			Assert::AreEqual(0, addFacilityRecord(NULL, &f));
+
+			FacilityList list = { NULL, 0 };
+			Assert::AreEqual(0, addFacilityRecord(&list, NULL));
+		}
+
+		TEST_METHOD(AddBudgetRecord_ValidInput_ReturnsSuccess)
+		{
+			BudgetHistory history = { NULL, 0 };
+
+			int result = addBudgetRecord(&history, "hotel", 200.0);
+
+			Assert::AreEqual(1, result);
+			Assert::AreEqual((size_t)1, history.count);
+
+			free(history.items);
+		}
+
+		TEST_METHOD(AddBudgetRecord_InvalidInput_ReturnsFailure)
+		{
+			BudgetHistory history = { NULL, 0 };
+
+			Assert::AreEqual(0, addBudgetRecord(NULL, "hotel", 100.0));
+			Assert::AreEqual(0, addBudgetRecord(&history, NULL, 100.0));
+		}
+
+		TEST_METHOD(FilterResults_ReturnsMatchingItem)
+		{
+			FacilityList list = { NULL, 0 };
+
+			Facility f1 = { 1, "A", "hotel", 100.0f, 4.0f, 1, 1 };
+			Facility f2 = { 2, "B", "hotel", 300.0f, 4.0f, 1, 1 };
+
+			addFacilityRecord(&list, &f1);
+			addFacilityRecord(&list, &f2);
+
+			Facility* results = NULL;
+			size_t count = 0;
+
+			int res = filterResults(&list, "hotel", 150.0, &results, &count);
+
+			Assert::AreEqual(1, res);
+			Assert::AreEqual((size_t)1, count);
+
+			free(results);
+			free(list.items);
+		}
+
+		TEST_METHOD(FilterResults_NoMatch_ReturnsEmpty)
+		{
+			FacilityList list = { NULL, 0 };
+
+			Facility f = { 1, "A", "hotel", 500.0f, 4.0f, 1, 1 };
+			addFacilityRecord(&list, &f);
+
+			Facility* results = NULL;
+			size_t count = 0;
+
+			int res = filterResults(&list, "gym", 100.0, &results, &count);
+
+			Assert::AreEqual(1, res);
+			Assert::AreEqual((size_t)0, count);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(GetFacilitiesData_ReturnsStoredData)
+		{
+			FacilityList list = { NULL, 0 };
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+			addFacilityRecord(&list, &f);
+
+			size_t count = 0;
+			const Facility* data = getFacilitiesData(&list, &count);
+
+			Assert::IsNotNull(data);
+			Assert::AreEqual((size_t)1, count);
+
+			free(list.items);
+		}
+
+		TEST_METHOD(GetBudgetData_ReturnsStoredData)
+		{
+			BudgetHistory history = { NULL, 0 };
+			addBudgetRecord(&history, "hotel", 100.0);
+
+			size_t count = 0;
+			const BudgetRecord* data = getBudgetData(&history, &count);
+
+			Assert::IsNotNull(data);
+			Assert::AreEqual((size_t)1, count);
+
+			free(history.items);
+		}
+
+		TEST_METHOD(FreeDataMemory_ClearsAllocatedMemory)
+		{
+			FacilityList list = { NULL, 0 };
+			BudgetHistory history = { NULL, 0 };
+
+			Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+			addFacilityRecord(&list, &f);
+			addBudgetRecord(&history, "hotel", 100.0);
+
+			freeDataMemory(&list, &history);
+
+			Assert::IsNull(list.items);
+			Assert::AreEqual((size_t)0, list.count);
+			Assert::IsNull(history.items);
+			Assert::AreEqual((size_t)0, history.count);
+		}
 	};
 }
 
