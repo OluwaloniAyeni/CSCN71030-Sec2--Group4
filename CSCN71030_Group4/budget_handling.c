@@ -31,6 +31,7 @@ Facility* processBudget(Facility* allItems, int count, UserRequest req, int* fil
     if (allItems == NULL || filteredCount == NULL) {
         return NULL;
 	}
+
     static Facility filtered[100];
     int found = 0;
 
@@ -54,7 +55,7 @@ Facility* processBudget(Facility* allItems, int count, UserRequest req, int* fil
     // store total number of matched results
 	*filteredCount = found;
    
-	// return results if found, otherwise return null
-	return (found > 0) ? filtered : NULL;
-  
+    // return results if found, otherwise return null
+    return (found > 0) ? filtered : NULL;
+
 }

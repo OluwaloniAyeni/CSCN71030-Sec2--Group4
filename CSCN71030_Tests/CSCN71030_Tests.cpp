@@ -6,6 +6,10 @@ extern "C" {
 #include "../CSCN71030_Group4/search_filtering.h"
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
+
+#include "../CSCN71030_Group4/user_input.h"
+#include "../CSCN71030_Group4/input_validation.h"
+#include "../CSCN71030_Group4/budget_handling.h"
 }
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -112,5 +116,109 @@ namespace RecommendationTests
 
 		// check sorting by rating (highest first)
 
+	};
+}
+
+namespace InputValidationTests
+{
+	TEST_CLASS(InputValidationTests)
+	{
+	public:
+
+		TEST_METHOD(ValidInput_ReturnsTrue)
+		{
+			UserRequest req = { "gym", 20.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(1, result);
+		}
+
+		TEST_METHOD(NegativeBudget_ReturnsFalse)
+		{
+			UserRequest req = { "gym", -5.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(0, result);
+		}
+
+		TEST_METHOD(ZeroBudget_ReturnsTrue)
+		{
+			UserRequest req = { "hotel", 0.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(1, result);
+		}
+
+		TEST_METHOD(EmptyCategory_ReturnsFalse)
+		{
+			UserRequest req = { "", 20.0 };
+
+			int result = validateInput(req);
+
+			Assert::AreEqual(0, result);
+		}
+	};
+}
+
+namespace BudgetHandlingTests
+{
+	TEST_CLASS(BudgetHandlingTests)
+	{
+	public:
+
+
+		TEST_METHOD(ProcessBudget_ReturnsMatchingItems)
+		{
+			Facility items[3] = {
+				{1, "Gym A", "gym", 15.0f, 4.5f, 1, 1},
+				{2, "Gym B", "gym", 25.0f, 4.0f, 1, 0},
+				{3, "Hotel A", "hotel", 50.0f, 4.2f, 1, 1}
+			};
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 20.0;
+
+			int filteredCount = 0;
+			Facility* result = processBudget(items, 3, req, &filteredCount);
+
+			Assert::IsNotNull(result);
+			Assert::AreEqual(1, filteredCount);
+
+		}
+
+		TEST_METHOD(ProcessBudget_ReturnsNullWhenNoneMatch)
+		{
+			Facility items[3] = {
+				{1, "Gym A", "gym", 50.0f, 4.5f, 1, 1},
+				{2, "Gym B", "gym", 60.0f, 4.0f, 1, 0},
+				{3, "Gym C", "gym", 70.0f, 4.2f, 1, 1}
+			};
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 10.0;
+
+			int filteredCount = 0;
+			Facility* result = processBudget(items, 3, req, &filteredCount);
+
+			Assert::IsNull(result);
+			Assert::AreEqual(0, filteredCount);
+
+		}
+
+		TEST_METHOD(ProcessBudget_NullInput_ReturnsNull)
+		{
+			UserRequest req;
+			strcpy_s(req.category, 50, "gym");
+			req.budget = 20.0;
+
+			int filteredCount = 0;
+			Facility* result = processBudget(NULL, 0, req, &filteredCount);
+
+			Assert::IsNull(result);
+
+		}
 	};
 }
