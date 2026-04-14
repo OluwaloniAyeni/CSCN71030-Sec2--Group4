@@ -1,4 +1,6 @@
-﻿#include <stdio.h>
+﻿#include <assert.h>
+#include "data_storage.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "pch.h"
@@ -206,4 +208,172 @@ namespace OutputDisplayTests
 		// check sorting by rating (highest first)
 
 	};
+}
+
+
+/* -----------------------------
+   addFacilityRecord Tests
+--------------------------------*/
+
+void test_addFacilityRecord() {
+	FacilityList list = { NULL, 0 };
+
+	Facility f = { 1, "Hotel A", "hotel", 120.0f, 4.2f, 1, 1 };
+
+	int result = addFacilityRecord(&list, &f);
+
+	assert(result == 1);
+	assert(list.count == 1);
+	assert(strcmp(list.items[0].name, "Hotel A") == 0);
+
+	free(list.items);
+}
+
+void test_addFacilityRecord_invalid() {
+	Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+
+	assert(addFacilityRecord(NULL, &f) == 0);
+	assert(addFacilityRecord(&(FacilityList) { 0 }, NULL) == 0);
+}
+
+/* -----------------------------
+   addBudgetRecord Tests
+--------------------------------*/
+
+void test_addBudgetRecord() {
+	BudgetHistory history = { NULL, 0 };
+
+	int result = addBudgetRecord(&history, "hotel", 200.0);
+
+	assert(result == 1);
+	assert(history.count == 1);
+	assert(strcmp(history.items[0].category, "hotel") == 0);
+
+	free(history.items);
+}
+
+void test_addBudgetRecord_invalid() {
+	BudgetHistory history = { NULL, 0 };
+
+	assert(addBudgetRecord(NULL, "hotel", 100.0) == 0);
+	assert(addBudgetRecord(&history, NULL, 100.0) == 0);
+}
+
+/* -----------------------------
+   filterResults Tests
+--------------------------------*/
+
+void test_filterResults() {
+	FacilityList list = { NULL, 0 };
+
+	Facility f1 = { 1, "A", "hotel", 100.0f, 4.0f, 1, 1 };
+	Facility f2 = { 2, "B", "hotel", 300.0f, 4.0f, 1, 1 };
+
+	addFacilityRecord(&list, &f1);
+	addFacilityRecord(&list, &f2);
+
+	Facility* results = NULL;
+	size_t count = 0;
+
+	int res = filterResults(&list, "hotel", 150.0, &results, &count);
+
+	assert(res == 1);
+	assert(count == 1);
+	assert(strcmp(results[0].name, "A") == 0);
+
+	free(results);
+	free(list.items);
+}
+
+void test_filterResults_noMatch() {
+	FacilityList list = { NULL, 0 };
+
+	Facility f = { 1, "A", "hotel", 500.0f, 4.0f, 1, 1 };
+	addFacilityRecord(&list, &f);
+
+	Facility* results = NULL;
+	size_t count = 0;
+
+	int res = filterResults(&list, "gym", 100.0, &results, &count);
+
+	assert(res == 1);
+	assert(count == 0);
+
+	free(list.items);
+}
+
+/* -----------------------------
+   get functions Tests
+--------------------------------*/
+
+void test_getFacilitiesData() {
+	FacilityList list = { NULL, 0 };
+
+	Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+	addFacilityRecord(&list, &f);
+
+	size_t count = 0;
+	const Facility* data = getFacilitiesData(&list, &count);
+
+	assert(data != NULL);
+	assert(count == 1);
+
+	free(list.items);
+}
+
+void test_getBudgetData() {
+	BudgetHistory history = { NULL, 0 };
+
+	addBudgetRecord(&history, "hotel", 100.0);
+
+	size_t count = 0;
+	const BudgetRecord* data = getBudgetData(&history, &count);
+
+	assert(data != NULL);
+	assert(count == 1);
+
+	free(history.items);
+}
+
+/* -----------------------------
+   freeDataMemory Test
+--------------------------------*/
+
+void test_freeDataMemory() {
+	FacilityList list = { NULL, 0 };
+	BudgetHistory history = { NULL, 0 };
+
+	Facility f = { 1, "Test", "hotel", 100.0f, 4.0f, 1, 1 };
+	addFacilityRecord(&list, &f);
+	addBudgetRecord(&history, "hotel", 100.0);
+
+	freeDataMemory(&list, &history);
+
+	assert(list.items == NULL);
+	assert(list.count == 0);
+	assert(history.items == NULL);
+	assert(history.count == 0);
+}
+
+/* -----------------------------
+   MAIN
+--------------------------------*/
+
+int main() {
+	test_addFacilityRecord();
+	test_addFacilityRecord_invalid();
+
+	test_addBudgetRecord();
+	test_addBudgetRecord_invalid();
+
+	test_filterResults();
+	test_filterResults_noMatch();
+
+	test_getFacilitiesData();
+	test_getBudgetData();
+
+	test_freeDataMemory();
+
+	printf("All DataStorage tests passed!\n");
+	return 0;
 }
