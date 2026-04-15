@@ -17,6 +17,9 @@ extern "C" {
 #include "../CSCN71030_Group4/user_input.h"
 #include "../CSCN71030_Group4/input_validation.h"
 #include "../CSCN71030_Group4/budget_handling.h"
+#include"../CSCN71030_Group4/error_handling.h"
+#include"../CSCN71030_Group4/sorting_and_ranking.h"
+#include"../CSCN71030_Group4/category_selection.h"
 }
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -502,3 +505,84 @@ namespace OutputDisplayTests
 	};
 }
 
+namespace SortingAndRankingTests
+{
+	TEST_CLASS(SortingAndRankingTests)
+	{
+	public:
+		TEST_METHOD(SortByPrice_SortsCorrectly)
+		{
+			Facility items[3] = {
+				{1, "B", "hotel", 150.0f, 4.0f, 1, 1},
+				{2, "A", "hotel", 100.0f, 4.5f, 1, 1},
+				{3, "C", "hotel", 200.0f, 3.5f, 0, 1}
+			};
+			sortByPrice(items, 3);
+			Assert::AreEqual(100.0f, items[0].price);
+			Assert::AreEqual(150.0f, items[1].price);
+			Assert::AreEqual(200.0f, items[2].price);
+		}
+		TEST_METHOD(SortByPrice_NullInput_DoesNotCrash)
+		{
+			sortByPrice(NULL, 0);
+			Assert::IsTrue(true); // If no crash → pass
+		}
+
+
+		TEST_METHOD(RankByRating_SortsCorrectly)
+		{
+			Facility items[3] = {
+				{1, "A", "hotel", 150.0f, 4.5f, 1, 1},
+				{2, "B", "hotel", 100.0f, 4.5f, 1, 1},
+				{3, "C", "hotel", 200.0f, 4.0f, 0, 1}
+			};
+			rankByRating(items, 3);
+			Assert::AreEqual(4.5f, items[0].rating);
+			Assert::AreEqual(100.0f, items[0].price); // Tie-breaker by price
+			Assert::AreEqual(4.5f, items[1].rating);
+			Assert::AreEqual(150.0f, items[1].price);
+			Assert::AreEqual(4.0f, items[2].rating);
+		}
+	};
+}
+
+	namespace CategorySelectionTests
+	{
+		TEST_CLASS(CategorySelectionTests)
+		{
+		public:
+			TEST_METHOD(IsValidCategory_ValidCategory_ReturnsTrue)
+			{
+				Assert::AreEqual(1, isValidCategory("hotel"));
+				Assert::AreEqual(1, isValidCategory("gym"));
+				Assert::AreEqual(1, isValidCategory("restaurant"));
+				Assert::AreEqual(1, isValidCategory("cafe"));
+			}
+			TEST_METHOD(IsValidCategory_InvalidCategory_ReturnsFalse)
+			{
+				Assert::AreEqual(0, isValidCategory("invalid"));
+				Assert::AreEqual(0, isValidCategory(""));
+				Assert::AreEqual(0, isValidCategory(NULL));
+			}
+		};
+	}
+
+
+
+	namespace ErrorHandlingTests
+	{
+		TEST_CLASS(ErrorHandlingTests)
+		{
+		public:
+			TEST_METHOD(HandleError_ValidInput_DoesNotCrash)
+			{
+				handleError("TestModule", "This is a test error message.");
+				Assert::IsTrue(true); // If no crash → pass
+			}
+			TEST_METHOD(HandleError_NullInput_DoesNotCrash)
+			{
+				handleError(NULL, NULL);
+				Assert::IsTrue(true); // If no crash → pass
+			}
+		};
+	}
