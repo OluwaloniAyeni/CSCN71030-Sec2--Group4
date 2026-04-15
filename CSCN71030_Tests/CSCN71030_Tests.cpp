@@ -12,6 +12,8 @@ extern "C" {
 #include "../CSCN71030_Group4/recommendation.h"
 #include "../CSCN71030_Group4/data_storage.h"
 #include "../CSCN71030_Group4/feature_display.h"
+#include "../CSCN71030_Group4/output_display.h"
+
 #include "../CSCN71030_Group4/user_input.h"
 #include "../CSCN71030_Group4/input_validation.h"
 #include "../CSCN71030_Group4/budget_handling.h"
@@ -450,3 +452,53 @@ namespace BudgetHandlingTests
 		}
 	};
 }
+
+
+
+
+
+TEST_CLASS(OutputDisplayTests)
+{
+public:
+
+	TEST_METHOD(DisplayResults_ValidInput_DoesNotCrash)
+	{
+		Facility items[2] = {
+			{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1},
+			{2, "Hotel B", "hotel", 150.0f, 4.0f, 0, 1}
+		};
+
+		UserRequest req;
+		strcpy_s(req.category, 50, "hotel");
+		req.budget = 200.0;
+
+		displayResults(&req, items, 2);
+
+		Assert::IsTrue(true); // If no crash → pass
+	}
+
+	TEST_METHOD(DisplayResults_NullRequest_DoesNotCrash)
+	{
+		Facility items[1] = {
+			{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1}
+		};
+
+		displayResults(NULL, items, 1);
+
+		Assert::IsTrue(true);
+	}
+
+	TEST_METHOD(DisplayResults_EmptyList_DoesNotCrash)
+	{
+		UserRequest req;
+		strcpy_s(req.category, 50, "hotel");
+		req.budget = 100.0;
+
+		displayResults(&req, NULL, 0);
+
+		Assert::IsTrue(true);
+	}
+};
+
+
+};
