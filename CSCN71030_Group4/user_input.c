@@ -79,7 +79,7 @@ UserRequest getUserInput() {
     // keep asking until budget input is valid.
     while(1) 
     {
-    printf("Enter your maximum budget: ");
+    printf("Enter your budget: ");
 
     // check if budget is a valid number.
     if (scanf_s("%lf", &req.budget) != 1)
