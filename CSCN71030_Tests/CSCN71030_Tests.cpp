@@ -455,48 +455,50 @@ namespace BudgetHandlingTests
 
 
 
-
-
-TEST_CLASS(OutputDisplayTests)
+namespace OutputDisplayTests
 {
-public:
 
-	TEST_METHOD(DisplayResults_ValidInput_DoesNotCrash)
+	TEST_CLASS(OutputDisplayTests)
 	{
-		Facility items[2] = {
-			{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1},
-			{2, "Hotel B", "hotel", 150.0f, 4.0f, 0, 1}
-		};
+	public:
 
-		UserRequest req;
-		strcpy_s(req.category, 50, "hotel");
-		req.budget = 200.0;
+		TEST_METHOD(DisplayResults_ValidInput_DoesNotCrash)
+		{
+			Facility items[2] = {
+				{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1},
+				{2, "Hotel B", "hotel", 150.0f, 4.0f, 0, 1}
+			};
 
-		displayResults(&req, items, 2);
+			UserRequest req;
+			strcpy_s(req.category, 50, "hotel");
+			req.budget = 200.0;
 
-		Assert::IsTrue(true); // If no crash → pass
-	}
+			displayResults(&req, items, 2);
 
-	TEST_METHOD(DisplayResults_NullRequest_DoesNotCrash)
-	{
-		Facility items[1] = {
-			{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1}
-		};
+			Assert::IsTrue(true); // If no crash → pass
+		}
 
-		displayResults(NULL, items, 1);
+		TEST_METHOD(DisplayResults_NullRequest_DoesNotCrash)
+		{
+			Facility items[1] = {
+				{1, "Hotel A", "hotel", 100.0f, 4.5f, 1, 1}
+			};
 
-		Assert::IsTrue(true);
-	}
+			displayResults(NULL, items, 1);
 
-	TEST_METHOD(DisplayResults_EmptyList_DoesNotCrash)
-	{
-		UserRequest req;
-		strcpy_s(req.category, 50, "hotel");
-		req.budget = 100.0;
+			Assert::IsTrue(true);
+		}
 
-		displayResults(&req, NULL, 0);
+		TEST_METHOD(DisplayResults_EmptyList_DoesNotCrash)
+		{
+			UserRequest req;
+			strcpy_s(req.category, 50, "hotel");
+			req.budget = 100.0;
 
-		Assert::IsTrue(true);
-	}
-};
+			displayResults(&req, NULL, 0);
+
+			Assert::IsTrue(true);
+		}
+	};
+}
 
